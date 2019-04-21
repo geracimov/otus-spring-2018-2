@@ -1,0 +1,14 @@
+databaseChangeLog:
+- changeSet:
+    id: 004-2019-04-04-reviews
+    author: geracimov
+    context: test
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: ID
+      file: data/reviews.csv
+      relativeToChangelogFile: true
+      separator: ;
+      quotChar: '"'
+      encoding: UTF-8
+      tableName: review

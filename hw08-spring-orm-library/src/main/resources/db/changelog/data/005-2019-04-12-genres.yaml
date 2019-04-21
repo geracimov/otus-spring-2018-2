@@ -1,0 +1,14 @@
+databaseChangeLog:
+- changeSet:
+    id: 005-2019-04-14-genres
+    author: geracimov
+    context: test
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: ID
+      file: data/genres.csv
+      relativeToChangelogFile: true
+      separator: ;
+      quotChar: '"'
+      encoding: UTF-8
+      tableName: genre
