@@ -17,7 +17,6 @@ import java.time.LocalDate;
 @DataJpaTest
 @EntityScan({"ru.geracimov.otus.spring.hw10libraryjpa.domain"})
 @EnableJpaRepositories({"ru.geracimov.otus.spring.hw10libraryjpa.repository"})
-@ComponentScan({"ru.geracimov.otus.spring.hw10libraryjpa"})
 @Transactional(
         propagation = Propagation.NOT_SUPPORTED
 )
