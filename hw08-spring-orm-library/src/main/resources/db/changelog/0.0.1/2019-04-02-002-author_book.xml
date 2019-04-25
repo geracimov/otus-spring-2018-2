@@ -1,0 +1,26 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet id="2019-04-02-002-author_book" author="geracimov">
+		<createTable tableName="author_book">
+			<column name="author_id" type="UUID" />
+			<column name="book_id" type="UUID" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2019-04-02-002-author_book_uniq" author="geracimov">
+		<addUniqueConstraint tableName="author_book" columnNames="author_id, book_id" constraintName="pk_author_book" />
+	</changeSet>
+
+	<changeSet id="2019-04-02-002-author_book_fk" author="geracimov">
+		<addForeignKeyConstraint baseTableName="author_book" baseColumnNames="author_id"
+			constraintName="fk_author_book_on_author" referencedTableName="author" referencedColumnNames="id"
+			onDelete="CASCADE" onUpdate="RESTRICT" />
+		<addForeignKeyConstraint baseTableName="author_book" baseColumnNames="book_id"
+			constraintName="fk_author_book_on_book" referencedTableName="book" referencedColumnNames="id"
+			onUpdate="RESTRICT" onDelete="CASCADE" />
+	</changeSet>
+
+</databaseChangeLog>
+
