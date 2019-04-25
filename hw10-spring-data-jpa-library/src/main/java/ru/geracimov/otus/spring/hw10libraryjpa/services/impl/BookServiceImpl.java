@@ -116,7 +116,7 @@ public class BookServiceImpl implements BookService {
         this.bookRepository.saveAndFlush(book);
     }
 
-    public List<Book> getAllContainsAndNotContainig(String contains, String notContaining) {
-        return this.bookRepository.findAllByNameContainsAndNameIsNotContaining(contains, notContaining);
+    public List<Book> getAllContainsAndNotContainig(String nameContains, String nameNotContaining) {
+        return this.bookRepository.findAllByNameContainsAndNameIsNotContaining(nameContains, nameNotContaining);
     }
 }
