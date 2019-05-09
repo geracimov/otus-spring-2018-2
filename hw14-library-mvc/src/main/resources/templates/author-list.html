@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title th:text="#{author.list}">Authors list</title>
+</head>
+<body>
+<section layout:fragment="app-content">
+    <div class="row">
+        <h3 th:text="#{author.list}">Authors list</h3>
+        <table class="table table-striped table-responsive-md">
+            <thead>
+            <tr>
+                <th scope="col" th:text="#{author.header.name}">Name</th>
+                <th scope="col" th:text="#{author.header.birth}">Birth</th>
+                <th scope="col" th:text="#{buttons.edit}">Edit</th>
+                <th scope="col" th:text="#{buttons.delete}">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="author : ${authors}">
+                <td><a href="#" th:href="@{/author/{id}/book(id=${author.getId()})}">
+                    <div th:text="${author.getName()}">John Doe</div>
+                </a></td>
+                <td th:text="${author.getBirth()}">2019-09-10</td>
+                <td>
+                    <a class="btn btn-warning" href="#" th:href="@{/author/{id}/edit(id=${author.getId()})}"
+                       th:text="#{buttons.edit}">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" href="#"
+                       th:href="@{/author/{id}/delete(id=${author.getId()})}"
+                       th:text="#{buttons.delete}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mt-5">
+            <a href="/author/add" class="btn btn-primary" th:text="#{buttons.add}">Add</a>
+        </div>
+    </div>
+
+</section>
+</body>
+</html>
