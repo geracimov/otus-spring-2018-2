@@ -1,0 +1,14 @@
+databaseChangeLog:
+- changeSet:
+    id: 003-2019-04-02-authors_books
+    author: geracimov
+    context: test
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: AUTHOR_ID, BOOK_ID
+      file: data/authors_books.csv
+      relativeToChangelogFile: true
+      separator: ;
+      quotChar: '"'
+      encoding: UTF-8
+      tableName: author_book

@@ -1,0 +1,14 @@
+databaseChangeLog:
+- changeSet:
+    id: 005-2019-04-14-genres_books
+    author: geracimov
+    context: test
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: GENRE_ID, BOOK_ID
+      file: data/genres_books.csv
+      relativeToChangelogFile: true
+      separator: ;
+      quotChar: '"'
+      encoding: UTF-8
+      tableName: genre_book

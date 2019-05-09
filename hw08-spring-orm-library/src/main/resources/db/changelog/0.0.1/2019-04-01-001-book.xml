@@ -1,0 +1,24 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet id="2018-01-11-0001-book_table" author="geracimov">
+		<createTable tableName="book">
+			<column name="id" type="UUID" />
+			<column name="name" type="varchar(50)" />
+			<column name="year" type="int" />
+			<column name="page_count" type="int" />
+			<column name="isbn" type="varchar(20)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="2018-01-11-0002-book_pk" author="geracimov">
+		<addNotNullConstraint tableName="book" columnName="id" columnDataType="UUID" />
+		<addPrimaryKey tableName="book" columnNames="id" constraintName="pk_book" />
+	</changeSet>
+
+	<changeSet id="2018-01-11-0003-book_ui" author="geracimov">
+		<addUniqueConstraint tableName="book" columnNames="isbn" constraintName="ui_book_isbn" />
+	</changeSet>
+
+</databaseChangeLog>
