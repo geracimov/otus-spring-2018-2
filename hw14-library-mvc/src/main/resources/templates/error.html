@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title th:text="#{app.name}">Spring MVC Library</title>
+</head>
+<body>
+<section layout:fragment="app-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h3>Oops!</h3>
+                <div th:text="${path}" style="color: #4e555b"></div>
+
+                <h4 th:text="${error}"><span th:text="${status}">100</span> Error text</h4>
+
+                <div class="error-details" th:text="${message}">
+                    Sorry, an error has occured, Requested page not found!
+                </div>
+                <div class="error-details" th:text="${exception}">
+                    Sorry, an error has occured, Requested page not found!
+                </div>
+
+
+                <div class="error-actions" style="margin-top: 20px;">
+                    <a class="btn btn-primary" href="/">Main page </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,18 @@
+spring:
+
+  liquibase.enabled: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+#    open-in-view: false
+    show-sql: true
+logging.level.org.hibernate: info
+
