@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layouts/default}"
+<html lang="ru"
+      layout:decorate="~{layouts/default}"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org" lang="ru">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{author.list}">Authors</title>
 </head>
 <body>
 <section layout:fragment="app-content">
-    <h2 class="mb-5" th:text="${author.getName()}">Author</h2>
-    <h4 class="mb-5" th:text="${author.getBirth()}">Birth</h4>
+    <div class="header-h1 header-h1-left">
+        <h1 th:text="${author.getName()}">Author</h1>
+        <span th:text="${author.getBirth()}">Birth</span>
+    </div>
     <table class="table table-striped table-responsive-md">
         <thead>
         <tr>
@@ -27,13 +29,14 @@
             <td th:text="${book.getPageCount()}">1000</td>
             <td th:text="${book.getYear()}">2019</td>
             <td>
-                <div th:each="genre : ${book.getGenres()}">
-                    <span th:text="${genre.getName()}">fantastic</span>
-                </div>
+                <div th:each="genre : ${book.getGenres()}" th:text="${genre.getName()}">Fairytale</div>
             </td>
         </tr>
         </tbody>
     </table>
+    <div class="btn-group">
+        <a class="btn btn-primary" href="../" th:text="#{buttons.back}">Back</a>
+    </div>
 </section>
 </body>
 </html>

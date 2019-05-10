@@ -5,14 +5,14 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Data
 @Entity
 @NoArgsConstructor
 @Table(name = "GENRE")
-@ToString(exclude = "books")
+@ToString(exclude = {"books", "id"})
 public class Genre {
 
     @Id
@@ -24,7 +24,7 @@ public class Genre {
     private String name;
 
     @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
-    private Set<Book> books;
+    private List<Book> books;
 
     public Genre(String name) {
         this.name = name;

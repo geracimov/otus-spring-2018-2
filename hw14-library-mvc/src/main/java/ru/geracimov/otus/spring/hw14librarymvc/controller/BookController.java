@@ -8,11 +8,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.geracimov.otus.spring.hw14librarymvc.domain.Author;
 import ru.geracimov.otus.spring.hw14librarymvc.domain.Book;
 import ru.geracimov.otus.spring.hw14librarymvc.exception.NotFoundException;
 import ru.geracimov.otus.spring.hw14librarymvc.services.AuthorService;
 import ru.geracimov.otus.spring.hw14librarymvc.services.BookService;
+import ru.geracimov.otus.spring.hw14librarymvc.services.GenreService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,63 +23,60 @@ import java.util.UUID;
 public class BookController {
 
     public final BookService bookService;
+    public final GenreService genreService;
+    public final AuthorService authorService;
 
     @GetMapping("/book")
     public String showAuthorList(@NotNull Model model) {
-        List<Book> books = bookService.getAllBooks();
+        Iterable<Book> books = bookService.getAllBooks();
         model.addAttribute("books", books);
         return "book-list";
     }
-/*
-    @GetMapping("/author/add")
-    public String showAuthorAddPage(Author author) {
-        return "author-add";
+
+    @GetMapping("/book/add")
+    public String showBookAddPage(Book book, Model model) {
+        model.addAttribute("genres", genreService.getAllGenres());
+        model.addAttribute("authors", authorService.getAllAuthors());
+        return "book-add";
     }
 
-    @PostMapping("/author/add")
-    public String authorSave(@Valid Author author,
-                             @NotNull BindingResult result) {
+    @PostMapping("/book/add")
+    public String bookSave(@Valid Book book,
+                           @NotNull BindingResult result) {
         if (result.hasErrors()) {
-            return "author-add";
+            return "book-add";
         }
-        authorService.save(author);
-        return "redirect:/author";
+        bookService.save(book);
+        return "redirect:/book";
     }
 
-    @GetMapping("/author/{id}/edit")
+    @GetMapping("/book/{id}/edit")
     public String showAuthorEditPage(@PathVariable("id") UUID id,
                                      @NotNull Model model) {
-        Author author = authorService.getAuthorById(id).orElseThrow(NotFoundException::new);
-        model.addAttribute("author", author);
-        return "author-edit";
+        Book book = bookService.getBookById(id).orElseThrow(NotFoundException::new);
+        model.addAttribute("allGenres", genreService.getAllGenres());
+        model.addAttribute("allAuthors", authorService.getAllAuthors());
+        model.addAttribute("book", book);
+        return "book-edit";
     }
 
-    @PostMapping("/author/{id}/edit")
+    @PostMapping("/book/{id}/edit")
     public String updateAuthor(@PathVariable("id") UUID id,
-                               @Valid Author author,
+                               @Valid Book book,
                                @NotNull BindingResult result) {
         if (result.hasErrors()) {
-            author.setId(id);
-            return "author-edit";
+            book.setId(id);
+            return "book-edit";
         }
-        authorService.save(author);
-        return "redirect:/author";
+        bookService.save(book);
+        return "redirect:/book";
     }
 
-    @GetMapping("/author/{id}/delete")
+    @GetMapping("/book/{id}/delete")
     public String deleteUser(@PathVariable("id") UUID id) {
-        Author author = authorService.getAuthorById(id).orElseThrow(() -> new IllegalArgumentException("Invalid author Id:" + id));
-        authorService.delete(author);
-        return "redirect:/author";
+        Book book = bookService.getBookById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+        bookService.delete(book);
+        return "redirect:/book";
     }
-
-    @GetMapping("/author/{id}/book")
-    public String showAuthorDetailPage(@PathVariable("id") UUID id,
-                                       @NotNull Model model) {
-        Author author = authorService.getAuthorById(id).orElseThrow(NotFoundException::new);
-        model.addAttribute("author", author);
-        model.addAttribute("books", bookService.getBooksByAuthor_Id(author.getId()));
-        return "author-book";
-    }*/
 
 }

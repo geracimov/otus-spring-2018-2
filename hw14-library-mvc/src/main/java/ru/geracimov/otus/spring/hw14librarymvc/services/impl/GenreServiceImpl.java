@@ -10,7 +10,7 @@ import ru.geracimov.otus.spring.hw14librarymvc.repository.GenreRepository;
 import ru.geracimov.otus.spring.hw14librarymvc.services.GenreService;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 import java.util.UUID;
 
 @Transactional
@@ -23,11 +23,11 @@ public class GenreServiceImpl implements GenreService {
         this.genreRepository = genreRepository;
     }
 
-    public Genre getGenreById(UUID uuid) {
-        return this.genreRepository.getOne(uuid);
+    public Optional<Genre> getGenreById(UUID uuid) {
+        return Optional.ofNullable(this.genreRepository.getOne(uuid));
     }
 
-    public Set<Genre> getGenresByBook(Book book) {
+    public List<Genre> getGenresByBook(Book book) {
         return this.genreRepository.getGenresByBooks(book);
     }
 

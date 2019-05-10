@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru"
+      layout:decorate="~{layouts/default}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{review.list}">Reviews list</title>
+</head>
+<body>
+<section layout:fragment="app-content">
+    <div class="header-h1 header-h1-left">
+        <h1 th:text="#{review.list}">Authors list</h1>
+    </div>
+    <div class="review" style="border-bottom: #4e555b dashed medium; padding-bottom: 1.5rem;
+" th:each="review : ${allReviews}">
+        <div class="name" th:text="${review.getReviewerName()}">Name</div>
+        <span class="date" th:text="${review.getDateTime()}">Date</span>
+        <div class="bookname" th:text="${review.getBook().name}">On book</div>
+        <div class="col-12" th:text="${review.text}">Text</div>
+        <div class="btn-group">
+            <a class="btn disabled" href="#" th:href="@{/review/{id}/edit(id=${review.getId()})}"
+               th:text="#{buttons.edit}">Edit</a>
+            <a class="btn btn-danger" href="#"
+               th:href="@{/review/{id}/delete(id=${review.getId()})}"
+               th:text="#{buttons.delete}">Delete</a>
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn btn-primary" href="/review/add" th:text="#{buttons.add}">Add</a>
+    </div>
+</section>
+</body>
+</html>

@@ -4,13 +4,13 @@ import ru.geracimov.otus.spring.hw14librarymvc.domain.Book;
 import ru.geracimov.otus.spring.hw14librarymvc.domain.Genre;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface GenreService {
-    Genre getGenreById(UUID uuid);
+    Optional<Genre> getGenreById(UUID uuid);
 
-    Set<Genre> getGenresByBook(Book book);
+    List<Genre> getGenresByBook(Book book);
 
     List<Genre> getAllGenres();
 

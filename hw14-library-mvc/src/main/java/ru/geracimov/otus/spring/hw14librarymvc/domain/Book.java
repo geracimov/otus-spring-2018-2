@@ -5,10 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @Entity
@@ -41,13 +38,13 @@ public class Book {
     @JoinTable(name = "AUTHOR_BOOK",
             joinColumns = @JoinColumn(name = "BOOK_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID"))
-    Set<Author> authors = new HashSet<>();
+    List<Author> authors = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "GENRE_BOOK",
             joinColumns = @JoinColumn(name = "BOOK_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "GENRE_ID", referencedColumnName = "ID"))
-    Set<Genre> genres = new HashSet<>();
+    List<Genre> genres = new ArrayList<>();
 
     public Book(String name,
                 int year,
