@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.geracimov.otus.spring.hw14librarymvc.domain.Author;
+import ru.geracimov.otus.spring.hw14librarymvc.domain.Book;
 import ru.geracimov.otus.spring.hw14librarymvc.exception.NotFoundException;
 import ru.geracimov.otus.spring.hw14librarymvc.services.AuthorService;
 import ru.geracimov.otus.spring.hw14librarymvc.services.BookService;
@@ -19,18 +20,17 @@ import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
-public class AuthorController {
+public class BookController {
 
     public final BookService bookService;
-    private final AuthorService authorService;
 
-    @GetMapping("/author")
+    @GetMapping("/book")
     public String showAuthorList(@NotNull Model model) {
-        List<Author> authors = authorService.getAllAuthors();
-        model.addAttribute("authors", authors);
-        return "author-list";
+        List<Book> books = bookService.getAllBooks();
+        model.addAttribute("books", books);
+        return "book-list";
     }
-
+/*
     @GetMapping("/author/add")
     public String showAuthorAddPage(Author author) {
         return "author-add";
@@ -80,6 +80,6 @@ public class AuthorController {
         model.addAttribute("author", author);
         model.addAttribute("books", bookService.getBooksByAuthor_Id(author.getId()));
         return "author-book";
-    }
+    }*/
 
 }

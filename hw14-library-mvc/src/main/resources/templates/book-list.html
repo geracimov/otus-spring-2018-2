@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title th:text="#{book.list}">Books list</title>
+</head>
+<body>
+<section layout:fragment="app-content">
+    <div class="row">
+        <h3 th:text="#{book.list}">Books list</h3>
+        <table class="table table-striped table-responsive-md">
+            <thead>
+            <tr>
+                <th scope="col" th:text="#{book.header.name}">Name</th>
+                <th scope="col" th:text="#{book.header.isbn}">ISBN</th>
+                <th scope="col" th:text="#{book.header.pagecount}">Page count</th>
+                <th scope="col" th:text="#{book.header.year}">Year</th>
+                <th scope="col" th:text="#{book.header.genres}">Genres</th>
+                <th scope="col" th:text="#{buttons.edit}">Edit</th>
+                <th scope="col" th:text="#{buttons.delete}">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${books}">
+                <td><div th:text="${book.getName()}">Book name</div></td>
+                <td th:text="${book.getIsbn()}">978-5-9985-0721-2</td>
+                <td><div th:text="${book.getPageCount()}">232</div></td>
+                <td th:text="${book.getYear()}">2009</td>
+                <td th:text="${book.getGenres()}">Genres</td>
+                <td>
+                    <a class="btn btn-warning" href="#" th:href="@{/book/{id}/edit(id=${book.getId()})}"
+                       th:text="#{buttons.edit}">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" href="#"
+                       th:href="@{/author/{id}/delete(id=${book.getId()})}"
+                       th:text="#{buttons.delete}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mt-5">
+            <a href="/author/add" class="btn btn-primary" th:text="#{buttons.add}">Add</a>
+        </div>
+    </div>
+
+</section>
+</body>
+</html>

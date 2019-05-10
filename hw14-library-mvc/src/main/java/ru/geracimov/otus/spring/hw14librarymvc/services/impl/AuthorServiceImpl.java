@@ -3,6 +3,7 @@ package ru.geracimov.otus.spring.hw14librarymvc.services.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.geracimov.otus.spring.hw14librarymvc.domain.Author;
 import ru.geracimov.otus.spring.hw14librarymvc.repository.AuthorRepository;
 import ru.geracimov.otus.spring.hw14librarymvc.services.AuthorService;
@@ -14,6 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class AuthorServiceImpl implements AuthorService {
     private static final Logger log = LoggerFactory.getLogger(AuthorServiceImpl.class);
     private final AuthorRepository authorRepository;

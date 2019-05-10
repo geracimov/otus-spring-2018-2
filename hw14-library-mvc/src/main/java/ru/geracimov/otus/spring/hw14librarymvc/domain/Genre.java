@@ -14,6 +14,7 @@ import java.util.UUID;
 @Table(name = "GENRE")
 @ToString(exclude = "books")
 public class Genre {
+
     @Id
     @GeneratedValue
     @Column(name = "ID")
@@ -21,6 +22,7 @@ public class Genre {
 
     @Column(name = "NAME")
     private String name;
+
     @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
     private Set<Book> books;
 

@@ -17,6 +17,7 @@ import java.util.UUID;
 @Table(name = "AUTHOR")
 @ToString(exclude = "books")
 public class Author {
+
     @Id
     @GeneratedValue
     @Column(name = "ID")

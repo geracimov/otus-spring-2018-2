@@ -3,6 +3,7 @@ package ru.geracimov.otus.spring.hw14librarymvc.services.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.geracimov.otus.spring.hw14librarymvc.domain.Book;
 import ru.geracimov.otus.spring.hw14librarymvc.domain.Review;
 import ru.geracimov.otus.spring.hw14librarymvc.repository.ReviewRepository;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+@Transactional
 @Service
 public class ReviewServiceImpl implements ReviewService {
     private static final Logger log = LoggerFactory.getLogger(ReviewServiceImpl.class);

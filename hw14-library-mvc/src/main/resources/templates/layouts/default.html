@@ -31,9 +31,11 @@
                         Authors
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/author" th:text="#{author.list}">All Authors</a>
+                        <a class="dropdown-item" href="/author" th:text="#{author.list}" th:href="@{/author}">All
+                            Authors</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/author/add" th:text="#{buttons.add}">Add Author</a>
+                        <a class="dropdown-item" href="/author/add" th:text="#{buttons.add}" th:href="@{/author/add}">Add
+                            Author</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -42,7 +44,7 @@
                         Authors
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#" th:text="#{book.list}">All books</a>
+                        <a class="dropdown-item" href="/book" th:text="#{book.list}" th:href="@{/book}">All books</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" th:text="#{buttons.add}">Add book</a>
                     </div>
