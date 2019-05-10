@@ -1,5 +1,6 @@
 package ru.geracimov.otus.spring.hw14librarymvc.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "AUTHOR")
 @ToString(exclude = "books")
 public class Author {
