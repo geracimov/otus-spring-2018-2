@@ -20,8 +20,7 @@
         <module>hw08-spring-orm-library</module>
         <module>hw10-spring-jpa-library</module>
         <module>hw14-spring-mvc-library</module>
-        <module>hw10-spring-jpa-library</module>
-        <module>hw08-spring-orm-library</module>
+        <module>hw15-spring-mvc-library-on-react</module>
     </modules>
 
     <properties>
