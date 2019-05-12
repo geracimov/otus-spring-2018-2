@@ -67,7 +67,7 @@ public class GenreController {
         return "redirect:/genre";
     }
 
-    @GetMapping("/genre/{id}/delete")
+    @PostMapping("/genre/{id}/delete")
     public String deleteUser(@PathVariable("id") UUID id) {
         Genre genre = genreService.getGenreById(id).orElseThrow(() -> new IllegalArgumentException("Invalid genre Id:" + id));
         genreService.delete(genre);

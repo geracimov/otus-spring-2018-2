@@ -66,7 +66,7 @@ public class AuthorController {
         return "redirect:/author";
     }
 
-    @GetMapping("/author/{id}/delete")
+    @PostMapping("/author/{id}/delete")
     public String deleteUser(@PathVariable("id") UUID id) {
         Author author = authorService.getAuthorById(id).orElseThrow(() -> new IllegalArgumentException("Invalid author Id:" + id));
         authorService.delete(author);

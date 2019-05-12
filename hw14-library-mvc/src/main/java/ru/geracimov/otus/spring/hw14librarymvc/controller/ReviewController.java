@@ -48,7 +48,7 @@ public class ReviewController {
         return "redirect:/review";
     }
 
-    @GetMapping("/review/{id}/delete")
+    @PostMapping("/review/{id}/delete")
     public String deleteUser(@PathVariable("id") UUID id) {
         Review review = reviewService.getReviewById(id);
         reviewService.delete(review);

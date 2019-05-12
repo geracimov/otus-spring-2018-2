@@ -72,7 +72,7 @@ public class BookController {
         return "redirect:/book";
     }
 
-    @GetMapping("/book/{id}/delete")
+    @PostMapping("/book/{id}/delete")
     public String deleteUser(@PathVariable("id") UUID id) {
         Book book = bookService.getBookById(id).orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
         bookService.delete(book);
