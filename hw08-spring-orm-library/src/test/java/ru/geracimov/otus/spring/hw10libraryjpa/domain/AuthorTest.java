@@ -1,26 +1,25 @@
 package ru.geracimov.otus.spring.hw10libraryjpa.domain;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
+import ru.geracimov.otus.spring.hw08libraryorm.domain.Author;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @DataJpaTest
-class AuthorTest {
+public class AuthorTest {
 
     @Autowired
     TestEntityManager em;
 
     @Test
-    void saveAndGet() {
+    public void saveAndGet() {
         Author a = new Author("name", LocalDate.now());
         UUID uuid = (UUID) em.persistAndGetId(a);
         System.out.println(uuid);
