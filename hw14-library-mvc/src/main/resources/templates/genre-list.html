@@ -4,39 +4,37 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{author.list}">Authors list</title>
+    <title th:text="#{genre.list}">Genre's list</title>
     <script src="/static/js/app.js" th:src="@{/js/app.js}" type="text/javascript"></script>
 </head>
 <body>
 <section layout:fragment="app-content">
     <div class="header-h1 header-h1-left">
-        <h1 th:text="#{author.list}">Authors list</h1>
+        <h1 th:text="#{genre.list}">Genre's list</h1>
     </div>
     <form method="post" action="#" id="mainForm">
         <table class="table table-striped table-responsive-md">
             <thead>
             <tr>
-                <th scope="col" th:text="#{author.header.name}">Name</th>
-                <th scope="col" th:text="#{author.header.birth}">Birth</th>
+                <th scope="col" th:text="#{genre.header.name}">Name</th>
                 <th scope="col" th:text="#{buttons.edit}">Edit</th>
                 <th scope="col" th:text="#{buttons.delete}">Delete</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="author : ${authors}">
-                <td><a href="#" th:href="@{/author/{id}/book(id=${author.getId()})}">
-                    <div th:text="${author.getName()}">John Doe</div>
+            <tr th:each="genre : ${allGenres}">
+                <td><a href="#" th:href="@{/genre/{id}/book(id=${genre.getId()})}">
+                    <div th:text="${genre.getName()}">Fairytale</div>
                 </a></td>
-                <td th:text="${author.getBirth()}">2019-09-10</td>
                 <td>
-                    <a class="btn btn-warning" href="#" th:href="@{/author/{id}/edit(id=${author.getId()})}"
+                    <a class="btn btn-warning" href="#" th:href="@{/genre/{id}/edit(id=${genre.getId()})}"
                        th:text="#{buttons.edit}">Edit</a>
                 </td>
                 <td>
                     <a href="#" class="btn btn-danger"
                        th:text="#{buttons.delete}"
-                       th:authorId="${author.getId().toString()}"
-                       onclick="onClickDelete(this.getAttribute('authorId'),'author')">Delete
+                       th:genreId="${genre.getId().toString()}"
+                       onclick="onClickDelete(this.getAttribute('genreId'),'genre')">Delete
                     </a>
                 </td>
             </tr>
@@ -44,8 +42,9 @@
         </table>
     </form>
     <div class="row">
-        <a class="btn btn-primary" href="/author/add" th:text="#{buttons.add}">Add</a>
+        <a class="btn btn-primary" href="/genre/add" th:text="#{buttons.add}">Add</a>
     </div>
+
 </section>
 </body>
 </html>

@@ -7,11 +7,11 @@ import ru.geracimov.otus.spring.hw14librarymvc.domain.Genre;
 import ru.geracimov.otus.spring.hw14librarymvc.domain.Review;
 
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface BookService {
-    Book getBookById(UUID uuid);
+    Optional<Book> getBookById(UUID uuid);
 
     boolean delete(UUID id);
 
@@ -24,7 +24,7 @@ public interface BookService {
                  int pageCount,
                  String isbn);
 
-    List<Book> getAllBooks();
+    Iterable<Book> getAllBooks();
 
     List<Book> getBooksByAuthor(Author author);
 

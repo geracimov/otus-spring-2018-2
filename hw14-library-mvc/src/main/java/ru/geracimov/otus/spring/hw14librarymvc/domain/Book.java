@@ -5,9 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @Entity
@@ -16,30 +14,37 @@ import java.util.UUID;
 @Table(name = "BOOK")
 public class Book {
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "AUTHOR_BOOK",
-            joinColumns = @JoinColumn(name = "BOOK_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID"))
-    Set<Author> authors;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "GENRE_BOOK",
-            joinColumns = @JoinColumn(name = "BOOK_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "GENRE_ID", referencedColumnName = "ID"))
-    Set<Genre> genres;
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private UUID id;
+
     @Column(name = "NAME")
     private String name;
+
     @Column(name = "YEAR")
     private int year;
+
     @Column(name = "PAGE_COUNT")
     private int pageCount;
+
     @Column(name = "ISBN")
     private String isbn;
+
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private List<Review> reviews;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "AUTHOR_BOOK",
+            joinColumns = @JoinColumn(name = "BOOK_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "ID"))
+    List<Author> authors = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "GENRE_BOOK",
+            joinColumns = @JoinColumn(name = "BOOK_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "GENRE_ID", referencedColumnName = "ID"))
+    List<Genre> genres = new ArrayList<>();
 
     public Book(String name,
                 int year,

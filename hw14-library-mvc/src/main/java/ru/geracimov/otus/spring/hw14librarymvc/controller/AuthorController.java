@@ -38,8 +38,7 @@ public class AuthorController {
 
     @PostMapping("/author/add")
     public String authorSave(@Valid Author author,
-                             @NotNull BindingResult result,
-                             Model model) {
+                             @NotNull BindingResult result) {
         if (result.hasErrors()) {
             return "author-add";
         }
@@ -58,8 +57,7 @@ public class AuthorController {
     @PostMapping("/author/{id}/edit")
     public String updateAuthor(@PathVariable("id") UUID id,
                                @Valid Author author,
-                               @NotNull BindingResult result,
-                               Model model) {
+                               @NotNull BindingResult result) {
         if (result.hasErrors()) {
             author.setId(id);
             return "author-edit";
@@ -68,9 +66,8 @@ public class AuthorController {
         return "redirect:/author";
     }
 
-    @GetMapping("/author/{id}/delete")
-    public String deleteUser(@PathVariable("id") UUID id,
-                             Model model) {
+    @PostMapping("/author/{id}/delete")
+    public String deleteUser(@PathVariable("id") UUID id) {
         Author author = authorService.getAuthorById(id).orElseThrow(() -> new IllegalArgumentException("Invalid author Id:" + id));
         authorService.delete(author);
         return "redirect:/author";

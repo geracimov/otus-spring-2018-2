@@ -14,6 +14,7 @@ import java.util.UUID;
 @ToString(exclude = "book")
 @Table(name = "REVIEW")
 public class Review {
+
     @Id
     @GeneratedValue
     @Column(name = "ID")
@@ -27,6 +28,7 @@ public class Review {
 
     @Column(name = "TEXT")
     private String text;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOOK_ID")
     private Book book;

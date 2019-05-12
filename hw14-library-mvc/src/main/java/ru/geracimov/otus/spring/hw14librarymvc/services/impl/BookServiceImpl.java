@@ -17,7 +17,7 @@ import ru.geracimov.otus.spring.hw14librarymvc.services.ReviewService;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -39,11 +39,11 @@ public class BookServiceImpl implements BookService {
         this.authorService = authorService;
     }
 
-    public Book getBookById(UUID uuid) {
-        return this.bookRepository.getOne(uuid);
+    public Optional<Book> getBookById(UUID uuid) {
+        return this.bookRepository.findById(uuid);
     }
 
-    public List<Book> getAllBooks() {
+    public Iterable<Book> getAllBooks() {
         return this.bookRepository.findAll();
     }
 
@@ -53,7 +53,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getBooksByAuthor_Id(UUID authorId) {
-        return bookRepository.findBooksByAuthor_Id(authorId);
+        return bookRepository.findBooksAndGenresByAuthors(authorService.getAuthorById(authorId).orElseThrow(NotFoundException::new));
     }
 
     public Book addBook(String name,
@@ -62,7 +62,7 @@ public class BookServiceImpl implements BookService {
                         String isbn) {
         try {
             Book book = new Book(name, year, pageCount, isbn);
-            return this.bookRepository.saveAndFlush(book);
+            return this.bookRepository.save(book);
         } catch (Exception var6) {
             log.error("Error adding book", var6);
             return null;
@@ -84,33 +84,33 @@ public class BookServiceImpl implements BookService {
     }
 
     public void save(Book book) {
-        this.bookRepository.saveAndFlush(book);
+        this.bookRepository.save(book);
     }
 
     public void addGenreToBook(UUID genreId,
                                UUID bookId) {
-        Genre genre = this.genreService.getGenreById(genreId);
-        Book book = this.bookRepository.getOne(bookId);
+        Genre genre = this.genreService.getGenreById(genreId).orElseThrow(NotFoundException::new);
+        Book book = this.bookRepository.findById(bookId).orElseThrow(NotFoundException::new);
         this.addGenreToBook(genre, book);
     }
 
     public void addGenreToBook(Genre genre,
                                Book book) {
         book.addGenre(genre);
-        this.bookRepository.saveAndFlush(book);
+        this.bookRepository.save(book);
     }
 
     public void addAuthorToBook(UUID authorId,
                                 UUID bookId) {
         Author author = this.authorService.getAuthorById(authorId).orElseThrow(NotFoundException::new);
-        Book book = this.bookRepository.getOne(bookId);
+        Book book = this.bookRepository.findById(bookId).orElseThrow(NotFoundException::new);
         this.addAuthorToBook(author, book);
     }
 
     public void addAuthorToBook(Author author,
                                 Book book) {
         book.addAuthor(author);
-        this.bookRepository.saveAndFlush(book);
+        this.bookRepository.save(book);
     }
 
     public void addReviewToBook(String reviewerName,
@@ -118,22 +118,22 @@ public class BookServiceImpl implements BookService {
                                 UUID bookId) {
         Review review = new Review(reviewerName, LocalDateTime.now(), text);
         this.reviewService.save(review);
-        Book book = this.getBookById(bookId);
+        Book book = this.getBookById(bookId).orElseThrow(NotFoundException::new);
         this.addReviewToBook(review, book);
     }
 
     public void addReviewToBook(Review review,
                                 Book book) {
         book.addReview(review);
-        this.bookRepository.saveAndFlush(book);
+        this.bookRepository.save(book);
     }
 
     public void delReviewFromBook(UUID reviewUuid,
                                   UUID bookUuid) {
         Review review = this.reviewService.getReviewById(reviewUuid);
-        Book book = this.bookRepository.getOne(bookUuid);
+        Book book = this.bookRepository.findById(bookUuid).orElseThrow(NotFoundException::new);
         book.delReview(review);
-        this.bookRepository.saveAndFlush(book);
+        this.bookRepository.save(book);
     }
 
     public List<Book> getAllContainsAndNotContainig(String nameContains,

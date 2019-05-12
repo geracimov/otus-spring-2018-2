@@ -1,5 +1,6 @@
 package ru.geracimov.otus.spring.hw14librarymvc.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -8,15 +9,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "AUTHOR")
 @ToString(exclude = "books")
 public class Author {
+
     @Id
     @GeneratedValue
     @Column(name = "ID")
@@ -31,7 +34,7 @@ public class Author {
     private LocalDate birth;
 
     @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
-    private Set<Book> books;
+    private List<Book> books;
 
     public Author(String name,
                   LocalDate birth) {

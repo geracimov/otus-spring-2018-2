@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layouts/default}"
+<html lang="ru"
+      layout:decorate="~{layouts/default}"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org" lang="ru">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="#{app.name}">Spring MVC Library</title>
 </head>
@@ -12,9 +12,10 @@
         <div class="col-md-12">
             <div class="error-template">
                 <h3>Oops!</h3>
-                <div th:text="${path}" style="color: #4e555b"></div>
+                <div style="color: #4e555b" th:text="${path}"></div>
 
-                <h4 th:text="${error}"><span th:text="${status}">100</span> Error text</h4>
+                <h4 th:text="${error}">100</h4>
+                <h4 th:text="${status}">Error text</h4>
 
                 <div class="error-details" th:text="${message}">
                     Sorry, an error has occured, Requested page not found!

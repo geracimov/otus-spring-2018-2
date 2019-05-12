@@ -5,15 +5,14 @@ import ru.geracimov.otus.spring.hw14librarymvc.domain.Review;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public interface ReviewService {
     Review getReviewById(UUID id);
 
-    Set<Review> getReviewsByBook(Book book);
+    List<Review> getReviewsByBook(Book book);
 
-    List<Review> getAllReviews();
+    Iterable<Review> getAllReviews();
 
     Review addReview(String reviwerName,
                      LocalDateTime dateTime,
