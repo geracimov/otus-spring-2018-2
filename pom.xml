@@ -17,11 +17,20 @@
     </parent>
 
     <modules>
+        <module>hw08-spring-orm-library</module>
+        <module>hw10-spring-jpa-library</module>
         <module>hw14-spring-mvc-library</module>
         <module>hw10-spring-jpa-library</module>
         <module>hw08-spring-orm-library</module>
     </modules>
 
+    <properties>
+        <assertj-core.version>3.12.2</assertj-core.version>
+        <junit-jupiter-api.version>5.3.2</junit-jupiter-api.version>
+        <h2.version>1.4.199</h2.version>
+        <lombok.version>1.18.6</lombok.version>
+        <spring-boot-devtools.version>2.1.4.RELEASE</spring-boot-devtools.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -32,25 +41,32 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.12.2</version>
+            <version>${assertj-core.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.3.2</version>
+            <version>${junit-jupiter-api.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.6</version>
+            <version>${lombok.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <version>${spring-boot-devtools.version}</version>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -59,6 +75,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -1,17 +1,15 @@
 package ru.geracimov.otus.spring.hw10libraryjpa.repository;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ru.geracimov.otus.spring.hw10libraryjpa.domain.Author;
-import ru.geracimov.otus.spring.hw10libraryjpa.repository.AuthorRepository;
+import ru.geracimov.otus.spring.hw08libraryorm.domain.Author;
+import ru.geracimov.otus.spring.hw08libraryorm.repository.AuthorRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,33 +18,33 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @DataJpaTest
-@EntityScan("ru.geracimov.otus.spring.hw10libraryjpa.domain")
-@EnableJpaRepositories("ru.geracimov.otus.spring.hw10libraryjpa.repository")
-@ComponentScan("ru.geracimov.otus.spring.hw10libraryjpa")
+@EntityScan("ru.geracimov.otus.spring.hw08libraryorm.domain")
+@EnableJpaRepositories("ru.geracimov.otus.spring.hw08libraryorm.repository")
+@ComponentScan("ru.geracimov.otus.spring.hw08libraryorm")
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
-class AuthorRepositoryJpaTest {
+public class AuthorRepositoryJpaTest {
 
     @Autowired
     AuthorRepository authorRepository;
 
     @Test
-    void create() {
+    public void create() {
         Author author = new Author("name", LocalDate.now());
         assertThatCode(() ->
-                authorRepository.create(author)
+                               authorRepository.create(author)
         ).doesNotThrowAnyException();
     }
 
     @Test
-    void createAndRead() {
+    public void createAndRead() {
         Author author = authorRepository.read(Author.class, UUID.fromString("a3057eca-556e-11e9-8647-d663bd873d93"));
         assertThat(author).hasFieldOrPropertyWithValue("name", "author3");
     }
 
     @Test
-    void update() {
+    public void update() {
         String newName = "newName";
         Author author = authorRepository.read(Author.class, UUID.fromString("a3057b96-556e-11e9-8647-d663bd873d93"));
         author.setName(newName);
@@ -68,6 +66,7 @@ class AuthorRepositoryJpaTest {
 
     @Test
     void getAllAuthors() {
-        assertThat(authorRepository.getAllAuthors()).size().isEqualTo(3);
+        assertThat(authorRepository.getAllAuthors()).size()
+                                                    .isEqualTo(3);
     }
 }
