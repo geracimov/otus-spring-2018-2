@@ -8,8 +8,9 @@
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>hw14-library-mvc</artifactId>
+    <name>hw14-spring-mvc-library</name>
+    <description>Library app with Spring ORM</description>
+    <artifactId>hw14-spring-mvc-library</artifactId>
     <build>
         <plugins>
             <plugin>

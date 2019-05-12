@@ -12,7 +12,7 @@
     <groupId>ru.geracimov.otus.spring</groupId>
     <artifactId>hw10-spring-jpa-library</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>hw08-spring-orm-library</name>
+    <name>hw10-spring-jpa-library</name>
     <description>Library app with Spring ORM</description>
 
     <properties>

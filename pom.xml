@@ -18,7 +18,7 @@
 
     <modules>
         <module>hw14-spring-mvc-library</module>
-        <module>hw10-spring-data-jpa-library</module>
+        <module>hw10-spring-jpa-library</module>
         <module>hw08-spring-orm-library</module>
     </modules>
 
