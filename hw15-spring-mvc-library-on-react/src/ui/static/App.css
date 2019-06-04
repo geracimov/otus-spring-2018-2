@@ -1,0 +1,29 @@
+.main {
+    background-color: #8bffb3;
+}
+
+.error {
+    background-color: red;
+}
+
+.App{
+    border: aqua 4px dashed;
+}
+
+.menu{
+    list-style: none;
+    margin: 0;
+    padding-left: 25px;
+    background-color: blue;
+}
+
+a{
+    text-decoration: none;
+}
+.react-dropdown-select{
+
+    max-width: 200px;
+}
+table tr td{
+    min-width: 100px;
+}
