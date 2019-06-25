@@ -1,7 +1,6 @@
 package ru.geracimov.otus.spring.hw15libraryreact.services.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.geracimov.otus.spring.hw15libraryreact.domain.Author;
@@ -14,10 +13,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @Transactional
 public class AuthorServiceImpl implements AuthorService {
-    private static final Logger log = LoggerFactory.getLogger(AuthorServiceImpl.class);
     private final AuthorRepository authorRepository;
 
     public AuthorServiceImpl(final AuthorRepository authorRepository) {
