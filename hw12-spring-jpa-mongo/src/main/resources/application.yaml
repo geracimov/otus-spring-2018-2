@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      database: library
+      port: 27017
+      host: localhost
+      username: admin
+      password: password
+
+logging.level.org.hibernate: info
+
