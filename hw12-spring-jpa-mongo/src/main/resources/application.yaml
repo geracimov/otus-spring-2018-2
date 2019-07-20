@@ -2,10 +2,10 @@ spring:
   data:
     mongodb:
       database: library
+      uri: mongodb://localhost
       port: 27017
-      host: localhost
-      username: admin
-      password: password
+#      username: admin
+#      password: password
 
 logging.level.org.hibernate: info
 

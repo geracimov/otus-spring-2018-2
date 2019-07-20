@@ -3,31 +3,26 @@ package ru.geracimov.otus.spring.hw12librarymongo.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
 
 @Data
 @Document(collection = "author")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "books")
 public class Author {
 
     @Id
-    private UUID id;
+    private ObjectId id;
 
     private String name;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birth;
-
-    private List<Book> books;
 
     public Author(String name,
                   LocalDate birth) {
@@ -35,11 +30,4 @@ public class Author {
         this.birth = birth;
     }
 
-    public void addBook(Book book) {
-        books.add(book);
-    }
-
-    public void removeBook(Book book) {
-        books.remove(book);
-    }
 }

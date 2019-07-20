@@ -1,22 +1,24 @@
 package ru.geracimov.otus.spring.hw12librarymongo.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
-@Document
+@Document(collection = "review")
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = "book")
 public class Review {
 
     @Id
-    private UUID id;
+    private ObjectId id;
 
     private String reviewerName;
 
