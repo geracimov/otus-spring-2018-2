@@ -3,18 +3,14 @@ package ru.geracimov.otus.spring.hw12librarymongo.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
 @Data
-@Document(collection = "review")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "book")
 public class Review {
 
     @Id
@@ -31,9 +27,16 @@ public class Review {
     public Review(String reviewerName,
                   LocalDateTime dateTime,
                   String text) {
+        this.id = new ObjectId();
         this.reviewerName = reviewerName;
         this.dateTime = dateTime;
         this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("-%s-  '%s' %s / %s  [%s]",
+                             id, book.getName(), reviewerName, dateTime, text);
     }
 
 }

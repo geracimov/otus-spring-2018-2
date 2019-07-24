@@ -11,9 +11,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @RequiredArgsConstructor
 public class Genre {
 
+    private final String name;
     @Id
     private ObjectId id;
 
-    private final String name;
-
+    @Override
+    public String toString() {
+        return String.format("-%s-  '%s'",
+                             id, name);
+    }
 }

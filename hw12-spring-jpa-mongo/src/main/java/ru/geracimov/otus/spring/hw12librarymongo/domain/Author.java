@@ -30,4 +30,10 @@ public class Author {
         this.birth = birth;
     }
 
+    @Override
+    public String toString() {
+        return String.format("-%s-  '%s'    %s",
+                             id, name, birth);
+    }
+
 }

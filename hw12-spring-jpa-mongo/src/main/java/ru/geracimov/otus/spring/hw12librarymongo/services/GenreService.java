@@ -1,27 +1,22 @@
 package ru.geracimov.otus.spring.hw12librarymongo.services;
 
 import org.bson.types.ObjectId;
-import ru.geracimov.otus.spring.hw12librarymongo.domain.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.geracimov.otus.spring.hw12librarymongo.domain.Genre;
-
-import java.util.List;
-import java.util.Set;
 
 
 public interface GenreService {
 
     Genre getGenreById(ObjectId id);
 
-    Set<Genre> getGenresByBook(Book book);
 
-    List<Genre> getAllGenres();
+    Page<Genre> getAllGenres(Pageable pageable);
 
-    Genre addGenre(String name);
+    Genre saveGenre(Genre genre);
 
-    boolean delete(ObjectId id);
+    Genre saveGenre(String name);
 
-    boolean delete(Genre genre);
-
-    void save(Genre genre);
+    void deleteGenre(ObjectId id);
 
 }

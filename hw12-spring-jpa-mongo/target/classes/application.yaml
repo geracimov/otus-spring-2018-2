@@ -8,4 +8,14 @@ spring:
 #      password: password
 
 logging.level.org.hibernate: info
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate: info
+
+
 

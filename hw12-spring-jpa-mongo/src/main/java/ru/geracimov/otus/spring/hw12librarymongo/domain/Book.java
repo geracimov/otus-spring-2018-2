@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Document(collection = "book")
@@ -29,12 +30,16 @@ public class Book {
     @NonNull
     private int pageCount;
 
+    @NonNull
     private String isbn;
 
     @DBRef
     private List<Author> authors = new ArrayList<>();
 
+    @DBRef
     private List<Genre> genres = new ArrayList<>();
+
+    private List<Review> reviews = new ArrayList<>();
 
     public Book addAuthor(Author author) {
         this.getAuthors()
@@ -58,6 +63,18 @@ public class Book {
         this.getGenres()
             .addAll(genres);
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("-%s-  '%s' %s / %s / %s    [%s]   [%s]",
+                             id, name, year, pageCount, isbn,
+                             authors.stream()
+                                    .map(Author::getName)
+                                    .collect(Collectors.joining(",")),
+                             genres.stream()
+                                   .map(Genre::getName)
+                                   .collect(Collectors.joining(",")));
     }
 
 }

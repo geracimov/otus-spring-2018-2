@@ -2,30 +2,39 @@ package ru.geracimov.otus.spring.hw12librarymongo.changelogs;
 
 import com.github.cloudyrock.mongock.ChangeLog;
 import com.github.cloudyrock.mongock.ChangeSet;
+import com.mongodb.client.MongoDatabase;
 import lombok.val;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import ru.geracimov.otus.spring.hw12librarymongo.domain.Author;
 import ru.geracimov.otus.spring.hw12librarymongo.domain.Book;
 import ru.geracimov.otus.spring.hw12librarymongo.domain.Genre;
+import ru.geracimov.otus.spring.hw12librarymongo.domain.Review;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @ChangeLog(order = "001")
-public class InitMongoDBDataChangeLog {
+public class TestInitMongoDBDataChangeLog {
 
-    private List<Author> authors;
-    private List<Genre> genres;
+    private List<Author> authors = new ArrayList<>(3);
+    private List<Genre> genres = new ArrayList<>(3);
+    private List<Book> books = new ArrayList<>(3);
+
+
+    @ChangeSet(order = "000", id = "dropDB", author = "geracimov", runAlways = true)
+    public void dropDB(MongoDatabase database) {
+        database.drop();
+    }
 
     @ChangeSet(order = "001", id = "createAuthors", author = "geracimov")
     public void createAuthors(MongoTemplate mongo) {
-        authors = IntStream.rangeClosed(1, 10)
-                           .mapToObj(i -> new Author("AuthorName" + i,
+        authors = IntStream.rangeClosed(1, 3)
+                           .mapToObj(i -> new Author("AuthorTest" + i,
                                                      LocalDate.now()
                                                               .plus(i, ChronoUnit.DAYS)))
                            .collect(Collectors.toList());
@@ -34,36 +43,28 @@ public class InitMongoDBDataChangeLog {
 
     @ChangeSet(order = "002", id = "createGenres", author = "geracimov")
     public void createGenres(MongoTemplate mongo) {
-        genres = IntStream.rangeClosed(1, 10)
-                          .mapToObj(i -> new Genre("GenreName" + i))
+        genres = IntStream.rangeClosed(1, 3)
+                          .mapToObj(i -> new Genre("GenreTest" + i))
                           .collect(Collectors.toList());
         mongo.insertAll(genres);
     }
 
     @ChangeSet(order = "003", id = "createBooks", author = "geracimov")
     public void createBooks(MongoTemplate mongo) {
-        Random rand = new Random();
 
-        val books = IntStream.rangeClosed(1, 10)
-                             .mapToObj(i -> new Book(null, "BookName" + i,
-                                                     rand.nextInt(500) + 1500,
-                                                     rand.nextInt(200) + 500,
+        val books = IntStream.rangeClosed(1, 5)
+                             .mapToObj(i -> new Book(null,
+                                                     "BookTest" + i,
+                                                     2019,
+                                                     100,
                                                      "ISBN" + i,
-                                                     getRandomElements(authors, rand, 5),
-                                                     getRandomElements(genres, rand, 10), new ArrayList<>()))
+                                                     List.of(authors.get(i % 3)),
+                                                     List.of(genres.get(i % 3)),
+                                                     List.of(new Review("ReviewerTest" + i,
+                                                                        LocalDateTime.now(),
+                                                                        "review text test" + i))))
                              .collect(Collectors.toList());
 
         mongo.insertAll(books);
-    }
-
-
-    private <T> List<T> getRandomElements(List<T> list,
-                                         Random rand,
-                                         int n) {
-        val result = new ArrayList<T>();
-        for (int i = 0; i < rand.nextInt(n); i++) {
-            result.add(list.get(rand.nextInt(list.size())));
-        }
-        return result;
     }
 }

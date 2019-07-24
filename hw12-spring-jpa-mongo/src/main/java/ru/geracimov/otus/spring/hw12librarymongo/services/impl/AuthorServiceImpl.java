@@ -17,11 +17,26 @@ import java.util.List;
 public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository aRepo;
 
-
     @Override
     public Author getById(ObjectId id) {
         return aRepo.findById(id)
                     .orElseThrow(AuthorNotExistsExeption::new);
+    }
+
+    @Override
+    public List<Author> getByName(String name) {
+        return aRepo.findByName(name);
+    }
+
+    @Override
+    public List<Author> getByBook(ObjectId bookId) {
+        return aRepo.getAuthorsByBookId(bookId);
+    }
+
+    @Override
+    public List<Author> getByBirthBetween(LocalDate from,
+                                          LocalDate to) {
+        return aRepo.findByBirthBetween(from, to);
     }
 
     @Override
@@ -30,23 +45,12 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author save(String name,
-                       LocalDate birth) {
-        return null;
+    public void delete(ObjectId id) {
+        aRepo.deleteById(id);
     }
 
     @Override
-    public boolean delete(ObjectId id) {
-        return false;
-    }
-
-    @Override
-    public boolean delete(Author author) {
-        return false;
-    }
-
-    @Override
-    public void save(Author author) {
-
+    public Author save(Author author) {
+        return aRepo.save(author);
     }
 }

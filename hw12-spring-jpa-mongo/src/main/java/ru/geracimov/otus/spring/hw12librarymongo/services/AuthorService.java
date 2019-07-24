@@ -8,17 +8,18 @@ import java.util.List;
 
 public interface AuthorService {
 
+    List<Author> getByName(String name);
+
+    List<Author> getByBirthBetween(LocalDate from, LocalDate to);
+
     Author getById(ObjectId id);
+
+    List<Author> getByBook(ObjectId bookId);
 
     List<Author> getAll();
 
-    boolean delete(ObjectId id);
+    void delete(ObjectId id);
 
-    boolean delete(Author author);
-
-    void save(Author author);
-
-    Author save(String name,
-                LocalDate birth);
+    Author save(Author author);
 
 }
