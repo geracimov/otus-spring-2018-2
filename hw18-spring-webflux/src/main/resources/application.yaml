@@ -1,0 +1,25 @@
+spring:
+  mvc:
+    date-format: MM-dd-yyyy
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: library2
+  webflux:
+    static-path-pattern: /**
+#      username: admin
+#      password: password
+
+#logging:
+#  level:
+#    org:
+#      springframework: debug
+
+#    com: debug
+#    org:
+#      springframework:
+#        data:
+#          mongodb:
+#            core:
+#              ReactiveMongoTemplate: DEBUG
