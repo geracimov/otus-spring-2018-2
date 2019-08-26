@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru"
+      layout:decorate="~{layouts/default}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{author.list}">Authors</title>
+</head>
+<body>
+<section layout:fragment="app-content">
+    <div class="header-h1 header-h1-left">
+        <h1 th:text="${author.getName()}">Author</h1>
+        <span th:text="${author.getBirth()}">Birth</span>
+    </div>
+    <table class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th scope="col" th:text="#{book.header.name}">Name</th>
+            <th scope="col" th:text="#{book.header.isbn}">ISBN</th>
+            <th scope="col" th:text="#{book.header.pagecount}">PageCount</th>
+            <th scope="col" th:text="#{book.header.year}">Year</th>
+            <th scope="col" th:text="#{book.header.genres}">Genres</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.getName()}">Name</td>
+            <td th:text="${book.getIsbn()}">ISBN</td>
+            <td th:text="${book.getPageCount()}">1000</td>
+            <td th:text="${book.getYear()}">2019</td>
+            <td>
+                <div th:each="genre : ${book.getGenres()}" th:text="${genre.getName()}">Fairytale</div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="btn-group">
+        <a class="btn btn-primary" href="../" th:text="#{buttons.back}">Back</a>
+    </div>
+</section>
+</body>
+</html>

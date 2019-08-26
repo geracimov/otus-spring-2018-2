@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/default}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <title th:text="#{author.list}">Update Author</title>
+</head>
+<body>
+<section layout:fragment="app-content">
+    <div class="header-h1 header-h1-left">
+        <h1 th:text="#{author.update}">Author update</h1>
+    </div>
+    <div class="col-md-6">
+        <form action="#" method="post" th:action="@{/author/{id}/edit(id=${author.getId()})}"
+              th:object="${author}">
+            <div class="form-group col-md-6">
+                <label class="col-form-label" for="name">Name</label>
+                <input class="form-control" id="name" placeholder="name" th:field="*{name}" type="text">
+                <span class="text-danger" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span>
+            </div>
+            <div class="form-group date col-md-6" data-provide="datepicker">
+                <label class="col-form-label" for="birth">Birth</label>
+                <input class="form-control" id="birth" placeholder="birth" th:field="*{birth}" type="text">
+                <span class="text-danger" th:errors="*{birth}" th:if="${#fields.hasErrors('birth')}"></span>
+            </div>
+            <div class="row">
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="../" th:text="#{buttons.back}">Back</a>
+                    <input class="btn btn-primary" th:value="#{buttons.edit}" type="submit" value="Update">
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        $('#birth').datepicker({
+            format: "yyyy-mm-dd",
+            autoclose: true
+        });
+    </script>
+</section>
+</body>
+</html>
