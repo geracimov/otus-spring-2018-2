@@ -9,5 +9,6 @@
 <includeAll path="changelog/0.0.2/" />
 <includeAll path="changelog/0.0.3/" />
 <includeAll path="changelog/data/" />
+<includeAll path="changelog/0.1.0/" />
 
 </databaseChangeLog>
