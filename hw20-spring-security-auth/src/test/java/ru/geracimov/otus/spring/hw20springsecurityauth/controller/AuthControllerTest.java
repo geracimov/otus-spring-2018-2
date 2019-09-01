@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,6 +32,8 @@ public class AuthControllerTest {
     AuthorService authorService;
     @MockBean
     BookService bookService;
+    @MockBean
+    UserDetailsService userDetailsService;
 
     @Test
     @DisplayName("без аутентификации завершается с редиректом на логин")
