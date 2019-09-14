@@ -6,9 +6,8 @@ import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Book;
 import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Genre;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface GenreRepository extends JpaRepository<Genre, UUID> {
+public interface GenreRepository extends JpaRepository<Genre, Long> {
     List<Genre> getGenresByBooks(Book book);
 
     List<Genre> findAllByNameContainsAndNameIsNotContaining(String contains,

@@ -10,7 +10,7 @@
             </not>
         </preConditions>
         <createTable tableName="sp_sec_users">
-            <column name="id" type="UUID">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" primaryKeyName="pk_sp_sec_users"/>
             </column>
             <column name="username" type="varchar(50)"/>
@@ -25,7 +25,7 @@
             </not>
         </preConditions>
         <createTable tableName="sp_sec_authorities">
-            <column name="id" type="UUID">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" primaryKeyName="pk_sp_sec_authorities"/>
             </column>
             <column name="name" type="varchar(50)"/>
@@ -40,13 +40,13 @@
             <tableExists tableName="sp_sec_authorities"/>
         </preConditions>
         <createTable tableName="sp_sec_users_authorities">
-            <column name="id" type="UUID">
+            <column name="id" type="bigint">
                 <constraints primaryKey="true" primaryKeyName="pk_sp_sec_users_authorities"/>
             </column>
-            <column name="user_id" type="UUID">
+            <column name="user_id" type="bigint">
                 <constraints foreignKeyName="fk_user" referencedTableName="sp_sec_users" referencedColumnNames="id"/>
             </column>
-            <column name="authority_id" type="UUID">
+            <column name="authority_id" type="bigint">
                 <constraints foreignKeyName="fk_authority" referencedTableName="sp_sec_authorities"
                              referencedColumnNames="id"/>
             </column>

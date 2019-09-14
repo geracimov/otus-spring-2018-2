@@ -21,8 +21,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-        String name = authentication.getPrincipal().toString();
-        String password = authentication.getCredentials().toString();
+        String name = authentication.getPrincipal()
+                                    .toString();
+        String password = authentication.getCredentials()
+                                        .toString();
         val userDetails = uds.loadUserByUsername(name);
         if (!pe.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("Login/password is incorrect!");

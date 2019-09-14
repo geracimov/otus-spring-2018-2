@@ -6,7 +6,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -18,7 +17,7 @@ public class Review {
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    private UUID id;
+    private Long id;
 
     @Column(name = "REVIEWER_NAME")
     private String reviewerName;

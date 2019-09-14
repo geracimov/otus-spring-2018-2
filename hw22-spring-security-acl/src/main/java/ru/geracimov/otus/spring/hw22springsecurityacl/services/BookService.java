@@ -1,57 +1,30 @@
 package ru.geracimov.otus.spring.hw22springsecurityacl.services;
 
 
-import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Author;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Book;
-import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Genre;
-import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Review;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface BookService {
-    Optional<Book> getBookById(UUID uuid);
 
-    boolean delete(UUID id);
+    Optional<Book> getBookById(Long uuid);
 
+    @PreAuthorize("hasAnyAuthority('EDITOR','ADMIN') or hasPermission(#id, 'ru.geracimov.otus.spring.hw22springsecurityacl.domain.Book','DELETE')")
+    boolean delete(Long id);
+
+    @PreAuthorize("hasAnyAuthority('EDITOR','ADMIN') or hasPermission(#book.id, 'ru.geracimov.otus.spring.hw22springsecurityacl.domain.Book','DELETE')")
     boolean delete(Book book);
 
     void save(Book book);
 
-    Book addBook(String name,
-                 int year,
-                 int pageCount,
-                 String isbn);
-
+    @PostFilter("hasAuthority('USER') && filterObject.name.matches('.*[АаAa].*')")
     List<Book> getAllBooks();
 
-    List<Book> getBooksByAuthor(Author author);
+    List<Book> getBooksByAuthorId(Long authorId);
 
-    List<Book> getBooksByAuthor_Id(UUID authorId);
+    List<Book> getBooksByGenreId(Long genreId);
 
-    void addGenreToBook(UUID genreId,
-                        UUID bookId);
-
-    void addGenreToBook(Genre genre,
-                        Book book);
-
-    void addAuthorToBook(UUID authorId,
-                         UUID bookId);
-
-    void addAuthorToBook(Author author,
-                         Book book);
-
-    void addReviewToBook(String reviewerName,
-                         String text,
-                         UUID bookId);
-
-    void addReviewToBook(Review review,
-                         Book book);
-
-    void delReviewFromBook(UUID reviewUuid,
-                           UUID bookUuid);
-
-    List<Book> getAllContainsAndNotContainig(String contains,
-                                             String notContaining);
 }

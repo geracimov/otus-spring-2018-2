@@ -1,53 +1,38 @@
 package ru.geracimov.otus.spring.hw22springsecurityacl.services.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.acls.domain.ObjectIdentityImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.geracimov.otus.spring.hw22springsecurityacl.config.AclCreationService;
 import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Author;
 import ru.geracimov.otus.spring.hw22springsecurityacl.repository.AuthorRepository;
 import ru.geracimov.otus.spring.hw22springsecurityacl.services.AuthorService;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
+@Slf4j
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
-    private static final Logger log = LoggerFactory.getLogger(AuthorServiceImpl.class);
     private final AuthorRepository authorRepository;
+    private final AclCreationService aclCreationService;
 
-    public AuthorServiceImpl(final AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
-    }
-
-    public Optional<Author> getAuthorById(UUID uuid) {
-        return Optional.ofNullable(this.authorRepository.getOne(uuid));
+    public Optional<Author> getAuthorById(Long uuid) {
+        return Optional.of(authorRepository.getOne(uuid));
     }
 
     public List<Author> getAllAuthors() {
-        List<Author> authors = this.authorRepository.findAll();
-        return authors.isEmpty() ? new ArrayList<>() : authors;
+        return authorRepository.findAll();
     }
 
-    public Author addAuthor(String name,
-                            LocalDate birth) {
+    public boolean delete(Long id) {
         try {
-            Author author = new Author(name, birth);
-            this.authorRepository.save(author);
-            return author;
-        } catch (Exception var4) {
-            log.error("Error adding author", var4);
-            return null;
-        }
-    }
-
-    public boolean delete(UUID id) {
-        try {
-            this.authorRepository.deleteById(id);
+            authorRepository.deleteById(id);
+            aclCreationService.dropAcl(new ObjectIdentityImpl(Author.class, id));
             return true;
         } catch (Exception var3) {
             log.error("Error deleting author - " + id, var3);
@@ -56,10 +41,12 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     public boolean delete(Author author) {
-        return this.delete(author.getId());
+        return delete(author.getId());
     }
 
+    @Transactional
     public void save(Author author) {
-        this.authorRepository.save(author);
+        Author saved = authorRepository.saveAndFlush(author);
+        aclCreationService.addDefaultPrivilege(new ObjectIdentityImpl(saved));
     }
 }

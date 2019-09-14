@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -18,7 +17,7 @@ public class Authority implements GrantedAuthority {
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    private UUID id;
+    private Long id;
 
     @Column(name = "NAME")
     private String authority;

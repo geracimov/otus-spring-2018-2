@@ -6,8 +6,7 @@ import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Book;
 import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Review;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface ReviewRepository extends PagingAndSortingRepository<Review, UUID> {
+public interface ReviewRepository extends PagingAndSortingRepository<Review, Long> {
     List<Review> getReviewsByBook(Book book);
 }

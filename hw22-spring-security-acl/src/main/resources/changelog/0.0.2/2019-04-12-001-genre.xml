@@ -5,13 +5,13 @@
 
     <changeSet id="2019-04-12-001-genre" author="geracimov">
         <createTable tableName="genre">
-            <column name="id" type="UUID"/>
+            <column name="id" type="bigint"/>
             <column name="name" type="varchar(50)"/>
         </createTable>
     </changeSet>
 
     <changeSet id="2019-04-12-002-genre_constraints" author="geracimov">
-        <addNotNullConstraint tableName="genre" columnName="id" columnDataType="UUID"/>
+        <addNotNullConstraint tableName="genre" columnName="id" columnDataType="bigint"/>
         <addPrimaryKey tableName="genre" columnNames="id" constraintName="pk_genre"/>
     </changeSet>
 

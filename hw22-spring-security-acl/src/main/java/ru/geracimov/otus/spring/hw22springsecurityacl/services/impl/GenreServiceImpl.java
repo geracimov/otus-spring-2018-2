@@ -1,53 +1,39 @@
 package ru.geracimov.otus.spring.hw22springsecurityacl.services.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.acls.domain.ObjectIdentityImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Book;
+import ru.geracimov.otus.spring.hw22springsecurityacl.config.AclCreationService;
 import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Genre;
 import ru.geracimov.otus.spring.hw22springsecurityacl.repository.GenreRepository;
 import ru.geracimov.otus.spring.hw22springsecurityacl.services.GenreService;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-@Transactional
+
+@Slf4j
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class GenreServiceImpl implements GenreService {
-    private static final Logger log = LoggerFactory.getLogger(GenreServiceImpl.class);
     private final GenreRepository genreRepository;
+    private final AclCreationService aclCreationService;
 
-    public GenreServiceImpl(final GenreRepository genreRepository) {
-        this.genreRepository = genreRepository;
-    }
-
-    public Optional<Genre> getGenreById(UUID uuid) {
-        return Optional.ofNullable(this.genreRepository.getOne(uuid));
-    }
-
-    public List<Genre> getGenresByBook(Book book) {
-        return this.genreRepository.getGenresByBooks(book);
+    public Optional<Genre> getGenreById(Long uuid) {
+        return Optional.of(genreRepository.getOne(uuid));
     }
 
     public List<Genre> getAllGenres() {
-        return this.genreRepository.findAll();
+        return genreRepository.findAll();
     }
 
-    public Genre addGenre(String name) {
+    public boolean delete(Long id) {
         try {
-            Genre genre = new Genre(name);
-            return this.genreRepository.saveAndFlush(genre);
-        } catch (Exception var3) {
-            log.error("Error adding genre", var3);
-            return null;
-        }
-    }
-
-    public boolean delete(UUID id) {
-        try {
-            this.genreRepository.deleteById(id);
+            genreRepository.deleteById(id);
+            aclCreationService.dropAcl(new ObjectIdentityImpl(Genre.class, id));
             return true;
         } catch (Exception var3) {
             log.error("Error deleting genre - " + id, var3);
@@ -56,10 +42,11 @@ public class GenreServiceImpl implements GenreService {
     }
 
     public boolean delete(Genre genre) {
-        return this.delete(genre.getId());
+        return delete(genre.getId());
     }
 
     public void save(Genre genre) {
-        this.genreRepository.saveAndFlush(genre);
+        genreRepository.saveAndFlush(genre);
+        aclCreationService.addDefaultPrivilege(new ObjectIdentityImpl(genre));
     }
 }

@@ -4,7 +4,7 @@
 
     <changeSet id="2018-01-11-0001-book_table" author="geracimov">
         <createTable tableName="book">
-            <column name="id" type="UUID"/>
+            <column name="id" type="bigint"/>
             <column name="name" type="varchar(50)"/>
             <column name="year" type="int"/>
             <column name="page_count" type="int"/>
@@ -13,7 +13,7 @@
     </changeSet>
 
     <changeSet id="2018-01-11-0002-book_pk" author="geracimov">
-        <addNotNullConstraint tableName="book" columnName="id" columnDataType="UUID"/>
+        <addNotNullConstraint tableName="book" columnName="id" columnDataType="bigint"/>
         <addPrimaryKey tableName="book" columnNames="id" constraintName="pk_book"/>
     </changeSet>
 

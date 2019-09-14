@@ -1,23 +1,29 @@
 package ru.geracimov.otus.spring.hw22springsecurityacl.services;
 
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
+import org.springframework.security.access.prepost.PreAuthorize;
 import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Author;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface AuthorService {
-    Optional<Author> getAuthorById(UUID id);
 
+    @PostAuthorize("hasPermission(returnObject.get().id, 'ru.geracimov.otus.spring.hw22springsecurityacl.domain.Author', 'READ')")
+    Optional<Author> getAuthorById(Long id);
+
+    @PostFilter(value = "filterObject.name.matches('Л.*') or hasAuthority('ADMIN') or hasPermission(filterObject, 'READ')")
     List<Author> getAllAuthors();
 
-    Author addAuthor(String name,
-                     LocalDate birth);
+    @PreAuthorize("hasAnyAuthority('EDITOR','ADMIN') " +
+            "or hasPermission(#id, 'ru.geracimov.otus.spring.hw22springsecurityacl.domain.Author', 'DELETE')")
+    boolean delete(Long id);
 
-    boolean delete(UUID id);
-
+    @PreAuthorize("hasAnyAuthority('EDITOR','ADMIN') " +
+            "or hasPermission(#author.id, 'ru.geracimov.otus.spring.hw22springsecurityacl.domain.Author', 'DELETE')")
     boolean delete(Author author);
 
     void save(Author author);
+
 }

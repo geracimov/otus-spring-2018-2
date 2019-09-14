@@ -4,8 +4,8 @@
 
     <changeSet id="2019-04-02-002-author_book" author="geracimov">
         <createTable tableName="author_book">
-            <column name="author_id" type="UUID"/>
-            <column name="book_id" type="UUID"/>
+            <column name="author_id" type="bigint"/>
+            <column name="book_id" type="bigint"/>
         </createTable>
     </changeSet>
 

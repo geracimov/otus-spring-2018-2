@@ -10,7 +10,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -23,7 +22,7 @@ public class Author {
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    private UUID id;
+    private Long id;
 
     @Column(name = "NAME")
     @NotBlank

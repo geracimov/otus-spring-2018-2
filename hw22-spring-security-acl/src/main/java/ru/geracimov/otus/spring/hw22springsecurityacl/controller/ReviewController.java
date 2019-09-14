@@ -14,7 +14,6 @@ import ru.geracimov.otus.spring.hw22springsecurityacl.services.ReviewService;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -49,7 +48,7 @@ public class ReviewController {
     }
 
     @PostMapping("/review/{id}/delete")
-    public String deleteUser(@PathVariable("id") UUID id) {
+    public String deleteUser(@PathVariable("id") Long id) {
         Review review = reviewService.getReviewById(id);
         reviewService.delete(review);
         return "redirect:/review";

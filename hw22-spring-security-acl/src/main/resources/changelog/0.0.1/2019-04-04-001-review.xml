@@ -4,17 +4,17 @@
 
     <changeSet id="2019-04-04-001-review" author="geracimov">
         <createTable tableName="review">
-            <column name="id" type="UUID"/>
+            <column name="id" type="bigint"/>
             <column name="reviewer_name" type="varchar(50)"/>
             <column name="datetime" type="datetime"/>
             <column name="text" type="varchar(255)"/>
-            <column name="book_id" type="UUID"/>
+            <column name="book_id" type="bigint"/>
         </createTable>
     </changeSet>
 
     <changeSet id="2019-04-04-001-review_pk" author="geracimov">
 
-        <addNotNullConstraint tableName="review" columnName="id" columnDataType="UUID"/>
+        <addNotNullConstraint tableName="review" columnName="id" columnDataType="bigint"/>
         <addPrimaryKey tableName="review" columnNames="id" constraintName="pk_review"/>
     </changeSet>
 

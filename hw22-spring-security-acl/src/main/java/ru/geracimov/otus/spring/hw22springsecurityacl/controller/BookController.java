@@ -18,7 +18,6 @@ import javax.persistence.NamedEntityGraph;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -54,7 +53,7 @@ public class BookController {
     }
 
     @GetMapping("/book/{id}/edit")
-    public String showAuthorEditPage(@PathVariable("id") UUID id,
+    public String showAuthorEditPage(@PathVariable("id") Long id,
                                      @NotNull Model model) {
         Book book = bookService.getBookById(id)
                                .orElseThrow(NotFoundException::new);
@@ -65,7 +64,7 @@ public class BookController {
     }
 
     @PostMapping("/book/{id}/edit")
-    public String updateAuthor(@PathVariable("id") UUID id,
+    public String updateAuthor(@PathVariable("id") Long id,
                                @Valid Book book,
                                @NotNull BindingResult result) {
         if (result.hasErrors()) {
@@ -77,7 +76,7 @@ public class BookController {
     }
 
     @PostMapping("/book/{id}/delete")
-    public String deleteUser(@PathVariable("id") UUID id) {
+    public String deleteUser(@PathVariable("id") Long id) {
         Book book = bookService.getBookById(id)
                                .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
         bookService.delete(book);

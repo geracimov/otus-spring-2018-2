@@ -7,19 +7,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "SP_SEC_USERS")
-public class User  implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    private UUID id;
+    private Long id;
 
     @Column(name = "USERNAME")
     private String username;

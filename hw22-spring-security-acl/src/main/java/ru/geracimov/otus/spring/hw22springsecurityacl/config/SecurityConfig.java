@@ -1,13 +1,13 @@
 package ru.geracimov.otus.spring.hw22springsecurityacl.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,14 +20,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+           .mvcMatchers("/js/**", "/css/**", "/favicon.ico", "/images/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
             .disable()
             .cors()
             .disable()
             .authorizeRequests()
+//            .antMatchers(HttpMethod.POST, "/**/delete", "/**/edit")
+//            .hasAnyAuthority("EDITOR", "ADMIN")
             .antMatchers("/**")
             .authenticated()
+            .antMatchers("/h2-console/**")
+            .permitAll()
             .and()
             .formLogin();
     }

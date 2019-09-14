@@ -1,26 +1,22 @@
 package ru.geracimov.otus.spring.hw22springsecurityacl.services;
 
-import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Book;
+import org.springframework.security.access.prepost.PreAuthorize;
 import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Review;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
-
 public interface ReviewService {
-    Review getReviewById(UUID id);
 
-    List<Review> getReviewsByBook(Book book);
+    Review getReviewById(Long id);
 
     Iterable<Review> getAllReviews();
 
-    Review addReview(String reviwerName,
-                     LocalDateTime dateTime,
-                     String text);
+    @PreAuthorize("hasAnyAuthority('EDITOR','ADMIN') " +
+            "or hasPermission(#id, 'ru.geracimov.otus.spring.hw22springsecurityacl.domain.Review', 'DELETE')")
+    boolean delete(Long id);
 
-    boolean delete(UUID id);
-
+    @PreAuthorize("hasAnyAuthority('EDITOR','ADMIN') " +
+            "or hasPermission(#review.id, 'ru.geracimov.otus.spring.hw22springsecurityacl.domain.Review', 'DELETE')")
     boolean delete(Review review);
 
     void save(Review review);
+
 }

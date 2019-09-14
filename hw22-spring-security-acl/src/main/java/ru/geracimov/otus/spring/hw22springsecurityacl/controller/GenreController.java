@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Genre;
 import ru.geracimov.otus.spring.hw22springsecurityacl.exception.NotFoundException;
+import ru.geracimov.otus.spring.hw22springsecurityacl.services.BookService;
 import ru.geracimov.otus.spring.hw22springsecurityacl.services.GenreService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
 public class GenreController {
-
+    private final BookService bookService;
     private final GenreService genreService;
 
     @GetMapping("/genre")
@@ -45,15 +45,16 @@ public class GenreController {
     }
 
     @GetMapping("/genre/{id}/edit")
-    public String showAuthorEditPage(@PathVariable("id") UUID id,
+    public String showAuthorEditPage(@PathVariable("id") Long id,
                                      @NotNull Model model) {
-        Genre genre = genreService.getGenreById(id).orElseThrow(NotFoundException::new);
+        Genre genre = genreService.getGenreById(id)
+                                  .orElseThrow(NotFoundException::new);
         model.addAttribute("genre", genre);
         return "genre-edit";
     }
 
     @PostMapping("/genre/{id}/edit")
-    public String updateAuthor(@PathVariable("id") UUID id,
+    public String updateAuthor(@PathVariable("id") Long id,
                                @Valid Genre genre,
                                @NotNull BindingResult result) {
         if (result.hasErrors()) {
@@ -65,10 +66,21 @@ public class GenreController {
     }
 
     @PostMapping("/genre/{id}/delete")
-    public String deleteUser(@PathVariable("id") UUID id) {
-        Genre genre = genreService.getGenreById(id).orElseThrow(() -> new IllegalArgumentException("Invalid genre Id:" + id));
+    public String deleteUser(@PathVariable("id") Long id) {
+        Genre genre = genreService.getGenreById(id)
+                                  .orElseThrow(() -> new IllegalArgumentException("Invalid genre Id:" + id));
         genreService.delete(genre);
         return "redirect:/genre";
+    }
+
+    @GetMapping("/genre/{id}/book")
+    public String showGenreDetailPage(@PathVariable("id") Long id,
+                                      @NotNull Model model) {
+        Genre genre = genreService.getGenreById(id)
+                                  .orElseThrow(NotFoundException::new);
+        model.addAttribute("genre", genre);
+        model.addAttribute("books", bookService.getBooksByGenreId(genre.getId()));
+        return "genre-book";
     }
 
 }

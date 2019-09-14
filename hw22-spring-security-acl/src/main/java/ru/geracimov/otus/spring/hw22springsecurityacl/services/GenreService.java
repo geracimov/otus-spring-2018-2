@@ -1,24 +1,23 @@
 package ru.geracimov.otus.spring.hw22springsecurityacl.services;
 
-import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Book;
+import org.springframework.security.access.prepost.PreAuthorize;
 import ru.geracimov.otus.spring.hw22springsecurityacl.domain.Genre;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface GenreService {
-    Optional<Genre> getGenreById(UUID uuid);
 
-    List<Genre> getGenresByBook(Book book);
+    Optional<Genre> getGenreById(Long uuid);
 
     List<Genre> getAllGenres();
 
-    Genre addGenre(String name);
+    @PreAuthorize("hasAnyAuthority('ADMIN') or hasPermission(#id, 'ru.geracimov.otus.spring.hw22springsecurityacl.domain.Genre','DELETE')")
+    boolean delete(Long id);
 
-    boolean delete(UUID id);
-
+    @PreAuthorize("hasAnyAuthority('ADMIN') or hasPermission(#genre.id, 'ru.geracimov.otus.spring.hw22springsecurityacl.domain.Genre','DELETE')")
     boolean delete(Genre genre);
 
     void save(Genre genre);
+
 }

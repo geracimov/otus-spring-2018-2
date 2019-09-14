@@ -1,16 +1,17 @@
 package ru.geracimov.otus.spring.hw22springsecurityacl.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "GENRE")
 @ToString(exclude = {"books", "id"})
 public class Genre {
@@ -18,7 +19,7 @@ public class Genre {
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    private UUID id;
+    private Long id;
 
     @Column(name = "NAME")
     private String name;
@@ -28,13 +29,5 @@ public class Genre {
 
     public Genre(String name) {
         this.name = name;
-    }
-
-    public void addBook(Book book) {
-        books.add(book);
-    }
-
-    public void removeBook(Book book) {
-        books.remove(book);
     }
 }

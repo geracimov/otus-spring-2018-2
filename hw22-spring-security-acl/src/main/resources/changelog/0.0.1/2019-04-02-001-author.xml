@@ -5,14 +5,14 @@
 
     <changeSet id="2019-04-02-001-author" author="geracimov">
         <createTable tableName="author">
-            <column name="id" type="UUID"/>
+            <column name="id" type="bigint"/>
             <column name="name" type="varchar(50)"/>
             <column name="birth" type="date"/>
         </createTable>
     </changeSet>
 
     <changeSet id="2019-04-02-002-author" author="geracimov">
-        <addNotNullConstraint tableName="author" columnName="id" columnDataType="UUID"/>
+        <addNotNullConstraint tableName="author" columnName="id" columnDataType="bigint"/>
         <addPrimaryKey tableName="author" columnNames="id" constraintName="pk_author"/>
     </changeSet>
 
