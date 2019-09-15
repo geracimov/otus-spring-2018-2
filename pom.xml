@@ -23,6 +23,7 @@
         <module>hw14-spring-mvc-library</module>
         <module>hw15-spring-mvc-library-on-react</module>
         <module>hw20-spring-security-auth</module>
+        <module>hw23-spring-batch</module>
     </modules>
 
     <properties>
