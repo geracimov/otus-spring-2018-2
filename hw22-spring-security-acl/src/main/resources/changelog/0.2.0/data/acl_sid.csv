@@ -1,0 +1,6 @@
+id;principal;sid
+1;0;USER
+2;1;admin
+3;1;lockeduser
+4;1;user
+5;1;editoruser
