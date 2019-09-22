@@ -24,6 +24,7 @@
         <module>hw15-spring-mvc-library-on-react</module>
         <module>hw20-spring-security-auth</module>
         <module>hw23-spring-batch</module>
+        <module>hw22-spring-security-acl</module>
     </modules>
 
     <properties>
