@@ -1,0 +1,5 @@
+id;class;class_id_type
+1;ru.geracimov.otus.spring.hw25springintegration.domain.Author;java.lang.Long
+2;ru.geracimov.otus.spring.hw25springintegration.domain.Book;java.lang.Long
+3;ru.geracimov.otus.spring.hw25springintegration.domain.Genre;java.lang.Long
+4;ru.geracimov.otus.spring.hw25springintegration.domain.Review;java.lang.Long
