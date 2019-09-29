@@ -12,6 +12,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.geracimov.otus.spring.hw25springintegration.config.security.CustomAuthenticationProvider;
 import ru.geracimov.otus.spring.hw25springintegration.domain.Author;
+import ru.geracimov.otus.spring.hw25springintegration.integration.AuthorGateway;
 import ru.geracimov.otus.spring.hw25springintegration.services.AuthorService;
 import ru.geracimov.otus.spring.hw25springintegration.services.BookService;
 
@@ -35,6 +36,8 @@ public class AuthorControllerTest {
     private BookService bookService;
     @MockBean
     UserDetailsService userDetailsService;
+    @MockBean
+    AuthorGateway authorGateway;
 
     @Test
     @DisplayName("корректно отображает список книг для созданного автора")
@@ -43,7 +46,7 @@ public class AuthorControllerTest {
         Long id = 999L;
         Author a = new Author("authorname", LocalDate.now());
         a.setId(id);
-        given(authorService.getAuthorById(id)).willReturn(Optional.of(a));
+        given(authorGateway.getAuthorById(id)).willReturn(Optional.of(a));
         mvc.perform(get("/author/" + id.toString() + "/book"))
            .andExpect(status().isOk())
            .andExpect(view().name("author-book"))

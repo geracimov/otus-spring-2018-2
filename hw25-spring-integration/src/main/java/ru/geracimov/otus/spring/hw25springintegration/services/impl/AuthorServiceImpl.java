@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@Service
+@Service("authorService")
 @Transactional
 @RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {

@@ -6,10 +6,11 @@ import org.springframework.security.acls.domain.ObjectIdentityImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.geracimov.otus.spring.hw25springintegration.config.AclCreationService;
+import ru.geracimov.otus.spring.hw25springintegration.domain.Author;
 import ru.geracimov.otus.spring.hw25springintegration.domain.Book;
 import ru.geracimov.otus.spring.hw25springintegration.exception.NotFoundException;
+import ru.geracimov.otus.spring.hw25springintegration.integration.AuthorGateway;
 import ru.geracimov.otus.spring.hw25springintegration.repository.BookRepository;
-import ru.geracimov.otus.spring.hw25springintegration.services.AuthorService;
 import ru.geracimov.otus.spring.hw25springintegration.services.BookService;
 import ru.geracimov.otus.spring.hw25springintegration.services.GenreService;
 
@@ -22,7 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
-    private final AuthorService authorService;
+    private final AuthorGateway authorGateway;
     private final GenreService genreService;
     private final AclCreationService aclCreationService;
 
@@ -36,8 +37,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getBooksByAuthorId(Long authorId) {
-        return bookRepository.findBooksAndGenresByAuthors(authorService.getAuthorById(authorId)
-                                                                       .orElseThrow(NotFoundException::new));
+        Author author = authorGateway.getAuthorById(authorId)
+                                     .orElseThrow(NotFoundException::new);
+        return bookRepository.findBooksAndGenresByAuthors(author);
     }
 
     @Override

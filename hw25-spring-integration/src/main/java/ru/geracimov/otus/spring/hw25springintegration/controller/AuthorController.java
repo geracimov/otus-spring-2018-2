@@ -10,23 +10,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.geracimov.otus.spring.hw25springintegration.config.security.User;
 import ru.geracimov.otus.spring.hw25springintegration.domain.Author;
 import ru.geracimov.otus.spring.hw25springintegration.exception.NotFoundException;
-import ru.geracimov.otus.spring.hw25springintegration.services.AuthorService;
+import ru.geracimov.otus.spring.hw25springintegration.integration.AuthorGateway;
 import ru.geracimov.otus.spring.hw25springintegration.services.BookService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+import static ru.geracimov.otus.spring.hw25springintegration.controller.MessageUtils.emptyMessage;
+
 @Controller
 @RequiredArgsConstructor
 public class AuthorController {
 
     public final BookService bookService;
-    private final AuthorService authorService;
+    private final AuthorGateway authorGateway;
 
     @GetMapping("/author")
     public String showAuthorList(@NotNull Model model) {
-        List<Author> authors = authorService.getAllAuthors();
+        List<Author> authors = authorGateway.getAll(emptyMessage());
         model.addAttribute("authors", authors);
         return "author-list";
     }
@@ -43,14 +45,14 @@ public class AuthorController {
         if (result.hasErrors()) {
             return "author-add";
         }
-        authorService.save(author);
+        authorGateway.save(author);
         return "redirect:/author";
     }
 
     @GetMapping("/author/{id}/edit")
     public String showAuthorEditPage(@PathVariable("id") Long id,
                                      @NotNull Model model) {
-        Author author = authorService.getAuthorById(id)
+        Author author = authorGateway.getAuthorById(id)
                                      .orElseThrow(NotFoundException::new);
         model.addAttribute("author", author);
         return "author-edit";
@@ -64,22 +66,22 @@ public class AuthorController {
             author.setId(id);
             return "author-edit";
         }
-        authorService.save(author);
+        authorGateway.save(author);
         return "redirect:/author";
     }
 
     @PostMapping("/author/{id}/delete")
     public String deleteUser(@PathVariable("id") Long id) {
-        Author author = authorService.getAuthorById(id)
+        Author author = authorGateway.getAuthorById(id)
                                      .orElseThrow(() -> new IllegalArgumentException("Invalid author Id:" + id));
-        authorService.delete(author);
+        authorGateway.delete(author);
         return "redirect:/author";
     }
 
     @GetMapping("/author/{id}/book")
     public String showAuthorDetailPage(@PathVariable("id") Long id,
                                        @NotNull Model model) {
-        Author author = authorService.getAuthorById(id)
+        Author author = authorGateway.getAuthorById(id)
                                      .orElseThrow(NotFoundException::new);
         model.addAttribute("author", author);
         model.addAttribute("books", bookService.getBooksByAuthorId(author.getId()));

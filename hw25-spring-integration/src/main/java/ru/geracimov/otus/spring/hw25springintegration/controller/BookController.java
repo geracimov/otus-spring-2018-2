@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.geracimov.otus.spring.hw25springintegration.domain.Book;
 import ru.geracimov.otus.spring.hw25springintegration.exception.NotFoundException;
-import ru.geracimov.otus.spring.hw25springintegration.services.AuthorService;
+import ru.geracimov.otus.spring.hw25springintegration.integration.AuthorGateway;
 import ru.geracimov.otus.spring.hw25springintegration.services.BookService;
 import ru.geracimov.otus.spring.hw25springintegration.services.GenreService;
 
@@ -19,6 +19,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+import static ru.geracimov.otus.spring.hw25springintegration.controller.MessageUtils.emptyMessage;
+
 @Controller
 @RequiredArgsConstructor
 @NamedEntityGraph(name = "Book.authors.genres", attributeNodes = {@NamedAttributeNode("authors"), @NamedAttributeNode("genres")})
@@ -26,7 +28,7 @@ public class BookController {
 
     public final BookService bookService;
     public final GenreService genreService;
-    public final AuthorService authorService;
+    private final AuthorGateway authorGateway;
 
     @GetMapping("/book")
     public String showAuthorList(@NotNull Model model) {
@@ -38,7 +40,7 @@ public class BookController {
     @GetMapping("/book/add")
     public String showBookAddPage(Book book, Model model) {
         model.addAttribute("genres", genreService.getAllGenres());
-        model.addAttribute("authors", authorService.getAllAuthors());
+        model.addAttribute("authors", authorGateway.getAll(emptyMessage()));
         return "book-add";
     }
 
@@ -58,7 +60,7 @@ public class BookController {
         Book book = bookService.getBookById(id)
                                .orElseThrow(NotFoundException::new);
         model.addAttribute("allGenres", genreService.getAllGenres());
-        model.addAttribute("allAuthors", authorService.getAllAuthors());
+        model.addAttribute("allAuthors", authorGateway.getAll(emptyMessage()));
         model.addAttribute("book", book);
         return "book-edit";
     }
