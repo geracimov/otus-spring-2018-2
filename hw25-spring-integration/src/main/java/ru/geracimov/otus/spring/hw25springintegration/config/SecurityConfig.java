@@ -32,12 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .cors()
             .disable()
             .authorizeRequests()
-//            .antMatchers(HttpMethod.POST, "/**/delete", "/**/edit")
-//            .hasAnyAuthority("EDITOR", "ADMIN")
-            .antMatchers("/**")
-            .authenticated()
+            .antMatchers("/monitoring/**","/swagger-ui.html/**")
+            .hasAuthority("ADMIN")
             .antMatchers("/h2-console/**")
             .permitAll()
+            .antMatchers("/**")
+            .authenticated()
             .and()
             .formLogin();
     }

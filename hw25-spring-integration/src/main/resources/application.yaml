@@ -1,4 +1,3 @@
-
 spring:
   datasource:
     driver-class-name: org.h2.Driver
@@ -24,3 +23,25 @@ spring:
   liquibase:
     change-log: classpath:changelog/changelog-master.xml
     enabled: true
+management:
+  endpoints:
+    web:
+      base-path: /monitoring
+      exposure:
+        include: "info, health, logfile, auditevents, integrationgraph, threaddump, metrics, httptrace"
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+  health:
+    defaults:
+      enabled: true
+  info:
+    defaults:
+      enabled: true
+logging:
+  file: "SpringIntegrationApp.log"
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%15.15t] %-40.40logger{39} [%5p] -> %m%n%wEx"
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){blue} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){red} %clr(:){faint} %m%n%wEx"
