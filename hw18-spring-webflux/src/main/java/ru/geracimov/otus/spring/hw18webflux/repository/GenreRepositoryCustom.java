@@ -1,7 +1,9 @@
 package ru.geracimov.otus.spring.hw18webflux.repository;
 
+import reactor.core.publisher.Mono;
+
 public interface GenreRepositoryCustom {
 
-    void removeGenreFromAllBooksByGenreId(String id);
+    Mono<Void> removeGenreFromAllBooksByGenreId(String id);
 
 }

@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -48,30 +47,6 @@ public class Book implements Cloneable {
         this.genres = b.genres;
         this.pageCount = b.pageCount;
         this.reviews = b.reviews;
-    }
-
-    public Book addAuthor(Author author) {
-        this.getAuthors()
-            .add(author);
-        return this;
-    }
-
-    public Book addAuthors(Collection<Author> authors) {
-        this.getAuthors()
-            .addAll(authors);
-        return this;
-    }
-
-    public Book addGenre(Genre genre) {
-        this.getGenres()
-            .add(genre);
-        return this;
-    }
-
-    public Book addGenres(Collection<Genre> genres) {
-        this.getGenres()
-            .addAll(genres);
-        return this;
     }
 
 }

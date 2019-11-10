@@ -2,20 +2,25 @@ package ru.geracimov.otus.spring.hw18webflux.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import ru.geracimov.otus.spring.hw18webflux.config.WebFluxConfig;
 import ru.geracimov.otus.spring.hw18webflux.domain.Genre;
-import ru.geracimov.otus.spring.hw18webflux.repository.GenreRepository;
+import ru.geracimov.otus.spring.hw18webflux.services.AuthorService;
+import ru.geracimov.otus.spring.hw18webflux.services.BookService;
 import ru.geracimov.otus.spring.hw18webflux.services.GenreService;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@WebFluxTest
+@ContextConfiguration(classes = WebFluxConfig.class)
 public class GenreControllerTest {
     @Autowired
     private WebTestClient webTestClient;
@@ -24,7 +29,13 @@ public class GenreControllerTest {
     GenreService genreService;
 
     @MockBean
-    GenreRepository genreRepository;
+    BookService bookService;
+
+    @MockBean
+    AuthorService authorService;
+
+    @MockBean
+    ReactiveMongoTemplate reactiveMongoTemplate;
 
     private static Genre GENRE1 = new Genre("GENRE1");
     private static Genre GENRE2 = new Genre("GENRE2");

@@ -9,7 +9,7 @@ import Genres from "./genre/Genres";
 class App extends Component {
 
     static baseUrl() {
-        return 'http://localhost:9000/api/';
+        return 'http://localhost:8080/api/';
     }
 
     render() {

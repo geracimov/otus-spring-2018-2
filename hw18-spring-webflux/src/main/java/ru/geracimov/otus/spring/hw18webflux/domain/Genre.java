@@ -1,5 +1,6 @@
 package ru.geracimov.otus.spring.hw18webflux.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -8,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document(collection = "genre")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Genre {
 
     @Id

@@ -3,7 +3,6 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-    mode: 'production',
     entry: './src/ui/index.js',
     output: {
         path: path.resolve(__dirname, 'target/classes/public/'),

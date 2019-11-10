@@ -8,8 +8,7 @@ import ru.geracimov.otus.spring.hw18webflux.domain.Author;
 
 import java.time.LocalDate;
 
-public interface AuthorRepository extends ReactiveMongoRepository<Author, String> //, AuthorRepositoryCustom
-{
+public interface AuthorRepository extends ReactiveMongoRepository<Author, String> {
 
     @Query("{ 'name' : {$regex: ?0, $options: 'i'} }")
     Flux<Author> findAllByName(String name);

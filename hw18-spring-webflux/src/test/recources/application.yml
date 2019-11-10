@@ -1,11 +1,5 @@
 spring:
   data:
     mongodb:
-      database: library2
-      host: localhost
       port: 0
-logging:
-  level:
-    org:
-      springframework:
-        web: DEBUG
+      database: test
