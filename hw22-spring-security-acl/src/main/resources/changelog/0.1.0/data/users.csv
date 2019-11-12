@@ -1,0 +1,5 @@
+id;username;password;locked
+1;admin;$2a$10$fBCuR3AYHUOe3JJwIlY9H.9xNZgyHlFMmCaE85tzTr8FsfSZg2cNq;false
+2;lockeduser;$2a$10$ArJO3BjpNpgTabW6ONN2neHMsM.7aFMUsRGa0sP4OOp2e.uEUzkq6;true
+3;user;$2a$10$hCHeesq13AqiQrxalcx62OvtAYNermGk0Q3lMfObMFqdJZA6EHmC.;false
+4;editoruser;$2a$10$a9KvQD2M792hVzQ1EW6XZe8QYPESEkpBB8S3mtF8knYF1Jt6KffO.;false

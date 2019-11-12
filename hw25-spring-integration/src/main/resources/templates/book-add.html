@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru"
+      layout:decorate="~{layouts/default}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{book.list}">Book list</title>
+</head>
+<body>
+<section layout:fragment="app-content">
+    <div class="header-h1 header-h1-left">
+        <h1 th:text="#{buttons.add.book}">Book add</h1>
+    </div>
+    <!--/*@thymesVar id="book" type="ru.geracimov.otus.spring.hw14librarymvc.domain.Book"*/-->
+    <form action="#" method="post" th:action="@{/book/add}" th:object="${book}">
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="name" th:text="#{book.header.name}">Name</label>
+            <input class="form-control" id="name" placeholder="name" th:field="*{name}" type="text">
+            <span class="text-danger" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"></span>
+        </div>
+        <div class="form-group   col-md-6">
+            <label class="col-form-label" for="isbn" th:text="#{book.header.isbn}">ISBN</label>
+            <input class="form-control" id="isbn" placeholder="ISBN" th:field="*{isbn}" type="text">
+            <span class="text-danger" th:errors="*{isbn}" th:if="${#fields.hasErrors('isbn')}"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="pageCount" th:text="#{book.header.pagecount}">PAge count</label>
+            <input class="form-control" id="pageCount" placeholder="pageCount" th:field="*{pageCount}" type="text">
+            <span class="text-danger" th:errors="*{pageCount}" th:if="${#fields.hasErrors('pageCount')}"></span>
+        </div>
+        <div class="form-group   col-md-6">
+            <label class="col-form-label" for="year" th:text="#{book.header.year}">Year</label>
+            <input class="form-control" id="year" placeholder="year" th:field="*{year}" type="text">
+            <span class="text-danger" th:errors="*{year}" th:if="${#fields.hasErrors('year')}"></span>
+        </div>
+
+        <div class="form-group   col-md-6">
+            <label for="genres" class="control-label" th:text="#{book.header.genres}">Select genres</label>
+            <select id="genres"
+                    name="genres"
+                    multiple="multiple"
+                    th:field="*{genres}">
+                <option th:each="element : ${genres}"
+                        th:value="${element.id}"
+                        th:text="  ${element.name} "></option>
+                <option th:remove="all">Genre1</option>
+                <option th:remove="all">Genre2</option>
+                <option th:remove="all">Genre3</option>
+            </select>
+        </div>
+        <div class="form-group   col-md-6">
+            <label for="authors" th:text="#{buttons.authors}">Select Authors</label>
+            <select id="authors"
+                    name="authors"
+                    multiple="multiple"
+                    th:field="*{authors}">
+                <option th:each="val : ${authors}"
+                        th:value="${val.id}"
+                        th:text="${val.name}"></option>
+                <option th:remove="all">Author1</option>
+                <option th:remove="all">Author2</option>
+                <option th:remove="all">Author3</option>
+            </select>
+        </div>
+        <div class="btn-group">
+            <a class="btn btn-primary" href="../" th:text="#{buttons.back}">Back</a>
+            <input class="btn btn-primary" th:value="#{buttons.add}" type="submit" value="Add Book">
+        </div>
+    </form>
+</section>
+</body>
+</html>

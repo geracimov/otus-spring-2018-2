@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru"
+      layout:decorate="~{layouts/default}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{review.list}">Reviews list</title>
+</head>
+<body>
+<section layout:fragment="app-content">
+    <div class="header-h1 header-h1-left">
+        <h1 th:text="#{buttons.add.review}">Review add</h1>
+    </div>
+    <!--/*@thymesVar id="review" type="ru.geracimov.otus.spring.hw14librarymvc.domain.Review"*/-->
+    <form action="#" method="post" th:action="@{/review/add}" th:object="${review}">
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="name" th:text="#{review.header.name}">Name</label>
+            <input class="form-control" id="name" placeholder="reviewerName" th:field="*{reviewerName}" type="text">
+            <span class="text-danger" th:errors="*{reviewerName}" th:if="${#fields.hasErrors('reviewerName')}"></span>
+        </div>
+        <div class="form-group   col-md-6">
+            <label for="genres" class="control-label" th:text="#{review.header.onbook}">Select book</label>
+            <select id="genres"
+                    name="genres"
+                    th:field="*{book}">
+                <option th:each="element : ${allBooks}"
+                        th:value="${element.id}"
+                        th:text="  ${element.name} "></option>
+                <option th:remove="all">Book1</option>
+                <option th:remove="all">Book2</option>
+                <option th:remove="all">Book3</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="text" th:text="#{review.header.text}">text</label>
+            <input class="form-control" id="text" placeholder="reviewerName" th:field="*{text}" type="text">
+            <span class="text-danger" th:errors="*{text}" th:if="${#fields.hasErrors('text')}"></span>
+        </div>
+        <div class="btn-group">
+            <a class="btn btn-primary" href="../" th:text="#{buttons.back}">Back</a>
+            <input class="btn btn-primary" th:value="#{buttons.add}" type="submit" value="Add Review">
+        </div>
+    </form>
+
+</section>
+</body>
+</html>

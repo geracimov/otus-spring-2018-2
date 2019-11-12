@@ -1,0 +1,60 @@
+version: '3.6'
+
+services:
+
+  librarydb:
+    image: postgres
+    restart: always
+    ports:
+      - 8081:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=librarydb
+    container_name: librarydb
+    networks:
+      - librarynetwork
+
+  libraryapp:
+    image: libraryapp:v1.0
+    ports:
+        - 8080:8080
+    environment:
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=librarydb
+      - POSTGRES_HOST=librarydb
+      - POSTGRES_PORT=5432
+    depends_on:
+      - librarydb
+    container_name: libraryapp
+    networks:
+      - librarynetwork
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8082:8080
+    container_name: adminer
+    networks:
+      - librarynetwork
+    depends_on:
+      - librarydb
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: pgadmin
+    networks:
+      - librarynetwork
+    environment:
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+      - PGADMIN_DEFAULT_EMAIL=geracimov@gmail.com
+    ports:
+      - 8083:80
+    depends_on:
+      - librarydb
+
+networks:
+  librarynetwork:
+      driver: bridge
