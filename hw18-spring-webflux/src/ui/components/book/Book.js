@@ -105,8 +105,8 @@ class Book extends Component {
             <td>{book.year}</td>
             <td>{book.pageCount}</td>
             <td>{book.isbn}</td>
-            <td>{book.authors ? book.authors.map(author => <div>{author.name}</div>) : null}</td>
-            <td>{book.genres ? book.genres.map(genre => <div>{genre.name}</div>) : null}</td>
+            <td>{book.authors ? book.authors.map(author => <div>{author ? author.name : ""}</div>) : null}</td>
+            <td>{book.genres ? book.genres.map(genre => <div>{genre ? genre.name : ""}</div>) : null}</td>
             <td>
                 <button
                     onClick={this.onEdit}>Edit

@@ -18,7 +18,8 @@ public class GenreCascadeDeleteEventsListener extends AbstractMongoEventListener
         super.onAfterDelete(event);
         val source = event.getSource();
         String id = (String) source.get("_id");
-        gRepo.removeGenreFromAllBooksByGenreId(id);
+        gRepo.removeGenreFromAllBooksByGenreId(id)
+             .subscribe();
     }
 
 }

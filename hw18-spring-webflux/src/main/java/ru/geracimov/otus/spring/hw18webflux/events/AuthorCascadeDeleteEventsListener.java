@@ -30,7 +30,8 @@ public class AuthorCascadeDeleteEventsListener extends AbstractMongoEventListene
         bRepo.findAllByAuthorsContaining(mAuthor)
              .doOnNext(b -> b.getAuthors()
                              .remove(mAuthor))
-             .doOnNext(bRepo::save);
+             .doOnNext(bRepo::save)
+             .subscribe();
     }
 
 }
