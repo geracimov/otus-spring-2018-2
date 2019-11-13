@@ -22,6 +22,7 @@
         <module>hw12-spring-jpa-mongo</module>
         <module>hw14-spring-mvc-library</module>
         <module>hw15-spring-mvc-library-on-react</module>
+        <module>hw18-spring-webflux</module>
         <module>hw20-spring-security-auth</module>
         <module>hw23-spring-batch</module>
         <module>hw22-spring-security-acl</module>
