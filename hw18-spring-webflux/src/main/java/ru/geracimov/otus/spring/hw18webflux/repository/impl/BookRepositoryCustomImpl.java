@@ -1,7 +1,9 @@
 package ru.geracimov.otus.spring.hw18webflux.repository.impl;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.result.UpdateResult;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -18,8 +20,8 @@ public class BookRepositoryCustomImpl implements BookRepositoryCustom {
     @Override
     public Mono<Void> removeAuthorFromBookById(String id) {
         Query query = Query.query(Criteria.where("id")
-                                          .is(id));
-        Update update = new Update().pull("authors", query);
+                                          .is(new ObjectId(id)));
+        Update update = new Update().pull("authors", new BasicDBObject("$id", new ObjectId(id)));
         Mono<UpdateResult> updateResult = mongoTemplate.updateMulti(new Query(), update, Book.class);
         return updateResult.then();
     }
