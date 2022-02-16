@@ -15,7 +15,7 @@
     </parent>
 
     <properties>
-        <postgresql.version>42.2.5</postgresql.version>
+        <postgresql.version>42.3.3</postgresql.version>
         <jetbrains-annotations.version>17.0.0</jetbrains-annotations.version>
         <liquibase.version>3.6.3</liquibase.version>
     </properties>
